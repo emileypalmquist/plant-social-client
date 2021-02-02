@@ -3,7 +3,10 @@ import { LOGIN, SIGN_OUT } from '../actionTypes';
 const initialState = {
     username: null,
     zone: null,
-    experienceLevel: null
+    experience_level: null,
+    id: null,
+    favorite_plant_species: [],
+    user_plants: []
 };
 
 const userReducer = (state = initialState, action) => {
@@ -11,13 +14,11 @@ const userReducer = (state = initialState, action) => {
         case LOGIN: {
             return {
                 ...state,
-                ...action.paylod
+                ...action.payload
             }
         }
         case SIGN_OUT: {
-            return {
-                initialState
-            }
+            return initialState
         }
         default:
             return state;

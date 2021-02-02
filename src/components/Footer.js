@@ -5,7 +5,7 @@ const Footer = () => {
 
     return (
       <footer>
-          <Link to='/about'> © Social Garden {new Date().getFullYear()} </Link>
+          <Link to='/'> © Social Garden {new Date().getFullYear()} </Link>
       </footer>
     )
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../redux/actions/userActions'
 
-const SignUp = ({login}) => {
+const SignUp = ({login, history}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -12,7 +12,16 @@ const SignUp = ({login}) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (e) => {
-    login(e, {username, password}, '/users')
+    let user = {
+      username, 
+      password, 
+      password_confirmation: passwordConfirmation,
+      email,
+      zone: growZone,
+      experience,
+    }
+    
+    login(e, user, '/users', history)
   }
 
   return (
