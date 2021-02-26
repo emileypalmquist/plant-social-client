@@ -35,8 +35,6 @@ class UserPlants extends Component {
         }
     }
 
-    
-
     setUserState = (user) => {
         this.setState({
             ...user, 
@@ -68,9 +66,37 @@ class UserPlants extends Component {
             .catch(console.log)
     }
 
-    render() {
-        const { userPlants, username, experienceLevel, zone, favoritePlantSpecies, error } = this.state
+    displayUserPlants = () => {
+        const { userPlants } = this.state
+        return userPlants.length === 0 ? (
+            <h1>No Plants &#9785; </h1>
+        ) : (
+            <div className='plant-cards-container'>
+                {userPlants.map(plant => <PlantCard key={plant.id} history={this.props.history} userPlant={plant} />)}
+            </div>
+        )
+    }
+
+    displayFavoritePlantSpecies = () => {
+        const { favoritePlantSpecies, username } = this.state
+        return favoritePlantSpecies.length === 0 ? (
+            <h1>No Plants &#9785; </h1>
+        ) : (
+            <div className='plant-cards-container'>
+                <h3>{ username }'s favorite species </h3>
+            </div>
+        )
         
+        
+    }
+
+    handleClick = () => {
+        this.props.history.push('/new_plant')
+    }
+
+    render() {
+        const { username, experienceLevel, zone, error, id } = this.state
+        const { userId } = this.props
        
         return (
             <div>
@@ -78,12 +104,13 @@ class UserPlants extends Component {
                     <p className='error'>{error}</p>
                 ) : (
                     <>
-                    <h1> { username }'s Garden </h1>
-                    <h6>experience level: {experienceLevel}</h6>
-                    <h6>grow zone: {zone}</h6>
-                    {userPlants.map(plant => <PlantCard key={plant.id} plant={plant} />)}
-
-                    <h3>{ username }'s favorite species </h3>
+                        <h1> { username }'s Garden </h1>
+                        <h6>experience level: {experienceLevel}</h6>
+                        <h6>grow zone: {zone}</h6>
+                        {userId === id && <button onClick={this.handleClick} >Add New Plant Friend</button> }
+                        {this.displayUserPlants()}
+                        {this.displayFavoritePlantSpecies()}
+                        
                     </>
                 )
                 }       
@@ -94,10 +121,9 @@ class UserPlants extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    plants: state.plantReducer.plants,
     userId: state.userReducer.id,
     user: state.userReducer
   }
 }
 
-export default connect( mapStateToProps )(UserPlants);
+export default connect( mapStateToProps )( UserPlants );

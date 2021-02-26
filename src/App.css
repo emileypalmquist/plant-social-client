@@ -1,23 +1,22 @@
 
 .app-container {
-  background-color: beige;
+  background-color: #dad7cd;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-content {
-  height: calc(100vh - 106px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex: 1
 }
 
 nav {
-  background-color: aquamarine;
+  background-color: #a3b18a;
   position: sticky;
   padding: 15px;
   display: flex;
   justify-content: flex-end;
+  align-items: row;
 }
 
 .nav-item {
@@ -25,17 +24,21 @@ nav {
   font-size: large;
 }
 
-
 footer {
-  background-color: aquamarine;
+  background-color: #a3b18a;
   text-align: center;
-  position: sticky;
+  
   padding: 15px 0;
   bottom: 0;
 }
 
+.active {
+  color:  white
+}
+
 a {
   text-decoration: none;
+  color: #344e41;
 }
 
 a:hover {
@@ -49,6 +52,19 @@ a:hover {
   border-radius: 25px;
   box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.plant-cards-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.plant-card-image {
+  max-height: 250px;
+  width: 250px;
+}
+
+
 /* 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

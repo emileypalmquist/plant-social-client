@@ -1,4 +1,4 @@
-import { LOGIN, SIGN_OUT } from '../actionTypes';
+import { LOGIN, SIGN_OUT,  ADD_USER_PLANT } from '../actionTypes';
 
 const initialState = {
     username: null,
@@ -19,6 +19,12 @@ const userReducer = (state = initialState, action) => {
         }
         case SIGN_OUT: {
             return initialState
+        }
+        case  ADD_USER_PLANT: {
+            return {
+                ...state,
+                user_plants: [...state.user_plants, action.payload]
+            }
         }
         default:
             return state;

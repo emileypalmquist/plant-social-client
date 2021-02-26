@@ -1,5 +1,5 @@
 // import action type variables from actiontypes.js
-import { ADD_PLANTS } from '../actionTypes';
+import { ADD_PLANTS, ADD_USER_PLANTS } from '../actionTypes';
 
 const initialState = {
     plants: [],
@@ -12,6 +12,12 @@ const plantReducer = (state = initialState, action) => {
             return {
                 ...state,
                 plants: action.payload
+            }
+        }
+        case ADD_USER_PLANTS: {
+            return {
+                ...state,
+                userPlants: action.payload
             }
         }
 

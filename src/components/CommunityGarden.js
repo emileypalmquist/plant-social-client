@@ -2,26 +2,28 @@ import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { setPlants } from '../redux/actions/plantActions'
 
-import PlantCard from './PlantCard'
+import PlantCard from './userPlants/PlantCard'
 
-const CommunityGarden = ({setPlants, plants}) => {
+const CommunityGarden = ({setPlants, userPlants}) => {
 
-  useEffect(() => {
-    setPlants()
-  },[])
+  // useEffect(() => {
+  //   // setPlants()
+  // },[])
 
 
   return (
-    <div>
+    <>
         <h1>Community Garden</h1>
-        {plants.map(plant => <PlantCard key={plant.id} plant={plant} />)}
-    </div>
+        <div className='plant-cards-container'>
+          {userPlants.map(plant => <PlantCard key={plant.id} userPlant={plant} />)}
+        </div>
+    </>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    plants: state.plantReducer.plants
+    userPlants: state.plantReducer.userPlants
   }
 }
 

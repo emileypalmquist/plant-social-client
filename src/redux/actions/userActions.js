@@ -1,5 +1,5 @@
 // import action type variables from actiontypes.js
-import { LOGIN, SIGN_OUT, ADD_ERROR, REMOVE_ERROR } from '../actionTypes'
+import { LOGIN, SIGN_OUT, ADD_ERROR, REMOVE_ERROR, ADD_USER_PLANT } from '../actionTypes'
 
 const API = process.env.REACT_APP_BACKEND_BASE_URL
 const token = localStorage.token
@@ -66,5 +66,41 @@ export const handleLogout = () => {
     return dispatch => {
         localStorage.removeItem('token')
         dispatch({type: SIGN_OUT})
+    }
+}
+
+
+export const newUserPlant = (history, name, difficulty, moisture, indoor, photo, userId, plantId) => {
+    const token = localStorage.token
+
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('difficulty', difficulty)
+    formData.append('moisture', moisture)
+    formData.append('indoor', indoor)
+    formData.append('user_id', userId)
+    formData.append('plant_id', plantId)
+    photo && formData.append('photo', photo)
+
+ 
+    return dispatch => {
+        fetch(API + '/user_plants', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.messages) {
+                    dispatch({type: ADD_ERROR, paylod: data.messages})
+                } else {
+                    dispatch({type: REMOVE_ERROR})
+                    dispatch({type: ADD_USER_PLANT, payload: data.user_plant})
+                    history.push(`/greenhouse/${userId}`)
+                }
+            })
+            .catch(console.log)
     }
 }
