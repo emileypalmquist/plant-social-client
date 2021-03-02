@@ -1,16 +1,29 @@
-const PlantCard = ({ userPlant: { name, id, plant, photo }, history}) => {
-    return (
-        <div className='plant-card' onClick={() => (history.push(`/plant/${id}`))}>
-            { photo.includes('https://') ?
-                 <img src={photo} alt='plant' className='plant-card-image' /> : 
-                <img src={`http://localhost:3000${photo}`} alt='plant' className='plant-card-image' />
-            }
-            <h3>{ name }</h3>
-            <h3>{ plant.name }</h3>
-        </div>
-    )
-}
+import { deleteUserPlant } from "../../redux/actions/userActions";
+import { connect } from "react-redux";
+const PlantCard = ({
+  userPlant: { name, id, plant, photo, user_id },
+  history,
+  user,
+  deleteUserPlant,
+}) => {
+  return (
+    <div className="plant-card" onClick={() => history.push(`/plant/${id}`)}>
+      {photo.includes("https://") ? (
+        <img src={photo} alt="plant" className="plant-card" />
+      ) : (
+        <img
+          src={`http://localhost:3000${photo}`}
+          alt="plant"
+          className="plant-card-image"
+        />
+      )}
+      <h3>{name}</h3>
+      <h3>{plant.name}</h3>
+      {user_id === user.id && (
+        <button onClick={(e) => deleteUserPlant(e, id)}>delete</button>
+      )}
+    </div>
+  );
+};
 
-
-
-export default PlantCard;
+export default connect(null, { deleteUserPlant })(PlantCard);
