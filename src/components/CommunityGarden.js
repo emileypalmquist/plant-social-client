@@ -4,7 +4,7 @@ import { setPlants } from '../redux/actions/plantActions'
 
 import PlantCard from './userPlants/PlantCard'
 
-const CommunityGarden = ({setPlants, userPlants}) => {
+const CommunityGarden = ({setPlants, userPlants, history}) => {
 
   // useEffect(() => {
   //   // setPlants()
@@ -15,7 +15,7 @@ const CommunityGarden = ({setPlants, userPlants}) => {
     <>
         <h1>Community Garden</h1>
         <div className='plant-cards-container'>
-          {userPlants.map(plant => <PlantCard key={plant.id} userPlant={plant} />)}
+          {userPlants.map(plant => <PlantCard key={plant.id} userPlant={plant} history={history} />)}
         </div>
     </>
   )

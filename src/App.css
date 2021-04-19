@@ -4,10 +4,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  
 }
 
 .app-content {
-  flex: 1
+  flex: 1;
 }
 
 nav {
@@ -64,6 +65,19 @@ a:hover {
   width: 250px;
 }
 
+.plant-image {
+  max-height: 30rem;
+  max-height: 30rem;
+}
+
+.plant-show-container {
+  /* not responsive- need responsive way to center div but now content within */
+  /* margin-left: 15rem; */
+  /* display: flex;
+  flex-direction: column;
+  align-content: center; */
+ 
+}
 
 /* 
 @media (prefers-reduced-motion: no-preference) {

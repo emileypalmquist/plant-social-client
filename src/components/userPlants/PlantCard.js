@@ -1,6 +1,6 @@
-const PlantCard = ({ userPlant: { name, id, plant, photo }, history}) => {
+const PlantCard = ({ userPlant: { name, id, plant, photo }, userPlant, history}) => {
     return (
-        <div className='plant-card' onClick={() => (history.push(`/plant/${id}`))}>
+        <div className='plant-card' onClick={() => (history.push({pathname: `/plant/${id}`, state: {userPlant}}))}>
             { photo.includes('https://') ?
                  <img src={photo} alt='plant' className='plant-card-image' /> : 
                 <img src={`http://localhost:3000${photo}`} alt='plant' className='plant-card-image' />

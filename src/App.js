@@ -40,7 +40,7 @@ class App extends Component {
             {errors && errors.map(error => <p className='error' key={Math.random}>{error}</p>) }
             
             <main className='app-content'>
-                {!localStorage.getItem('token') ? (
+                {!localStorage.getItem('token')? (
                     <Switch>
                       <Route exact path='/' component={About} />
                       <Route exact path='/login' component={Login} />
