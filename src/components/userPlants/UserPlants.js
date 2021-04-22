@@ -1,129 +1,140 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PlantCard from './PlantCard'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PlantCard from "./PlantCard";
+import {setGreenhouse} from "../../redux/actions/greenhouseActions"
 
-const API = process.env.REACT_APP_BACKEND_BASE_URL
+const API = process.env.REACT_APP_BACKEND_BASE_URL;
 
 class UserPlants extends Component {
-    state = {
-        username: null,
-        experienceLevel: null,
-        zone: null,
-        userPlants: [],
-        favoritePlantSpecies: [],
-        id: null,
-        error: null
-    }
+  // need to refactor into redux store
+  state = {
 
-    componentDidMount() {
-        this.handleGetUser()
-    }
-    
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.id !== this.props.match.params.id ) {
-            this.handleGetUser()
-        }
-    }
+    error: null,
+  };
 
-    handleGetUser = () => {
-        const { match: { params: { id } }, userId, user } = this.props
-        
-        if (parseInt(id) !== userId) {
-           this.getUserShow(id)
+  componentDidMount() {
+    this.handleGetUser();
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(prevProps.match.params, this.props.match.params)
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.handleGetUser();
+    }
+  }
+
+  handleGetUser = () => {
+    const {
+      match: {
+        params: { id },
+      },
+      user,
+    } = this.props;
+console.log(id, user.id)
+    if (id != user.id) {
+      this.getUserShow(id);
+    } else {
+      this.setUserState(user);
+    }
+  };
+
+  setUserState = (user) => {
+    this.props.setGreenhouse(user)
+    this.setState({ error: null });
+  };
+
+  getUserShow = (id) => {
+    const token = localStorage.token;
+
+    fetch(API + "/users/" + id, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.error) {
+          this.setState({ error: data.error });
         } else {
-            this.setUserState(user)
+          this.props.setGreenhouse(data);
+          this.setState({ error: null });
         }
-    }
+      })
+      .catch(console.log);
+  };
 
-    setUserState = (user) => {
-        this.setState({
-            ...user, 
-            experienceLevel: user.experience_level,
-            userPlants: user.user_plants,
-            favoritePlantSpecies: user.favorite_plant_species,
-            error: null
-        })
-    }
+  displayUserPlants = () => {
+    // const { userPlants, username } = this.state;
+    const { user, username, history, userPlants } = this.props;
 
-    getUserShow = (id) => {
-        const token = localStorage.token
+    return userPlants.length === 0 ? (
+      <h1>No Plants &#9785; </h1>
+    ) : (
+      <div className="plant-cards-container">
+        {userPlants.map((plant) => (
+          <PlantCard
+            key={plant.id}
+            history={history}
+            userPlant={plant}
+            username={username}
+            user={user}
+          />
+        ))}
+      </div>
+    );
+  };
 
-        fetch(API + '/users/' + id, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        })
-            .then(resp => resp.json())
-            .then(data => {
-                console.log(data)
-                if (data.error) {
-                    this.setState({error: data.error})
-                } else {
-                    this.setUserState(data)
-                }
-            })
-            .catch(console.log)
-    }
+  displayFavoritePlantSpecies = () => {
+    const { username, favoritePlantSpecies } = this.props
+    return favoritePlantSpecies.length === 0 ? (
+      <h1>No Favorite Plants &#9785; </h1>
+    ) : (
+      <div className="plant-cards-container">
+        <h3>{username}'s favorite species </h3>
+      </div>
+    );
+  };
 
-    displayUserPlants = () => {
-        const { userPlants } = this.state
-        return userPlants.length === 0 ? (
-            <h1>No Plants &#9785; </h1>
+  handleClick = () => {
+    this.props.history.push("/new_plant");
+  };
+
+  render() {
+    const { user, username, zone, experienceLevel, id} = this.props
+    const {error} = this.state
+   
+    return (
+      <div>
+        {error ? (
+          <p className="error">{error}</p>
         ) : (
-            <div className='plant-cards-container'>
-                {userPlants.map(plant => <PlantCard key={plant.id} history={this.props.history} userPlant={plant} />)}
-            </div>
-        )
-    }
-
-    displayFavoritePlantSpecies = () => {
-        const { favoritePlantSpecies, username } = this.state
-        return favoritePlantSpecies.length === 0 ? (
-            <h1>No Plants &#9785; </h1>
-        ) : (
-            <div className='plant-cards-container'>
-                <h3>{ username }'s favorite species </h3>
-            </div>
-        )
-        
-        
-    }
-
-    handleClick = () => {
-        this.props.history.push('/new_plant')
-    }
-
-    render() {
-        const { username, experienceLevel, zone, error, id } = this.state
-        const { userId } = this.props
-       
-        return (
-            <div>
-                {error ? (
-                    <p className='error'>{error}</p>
-                ) : (
-                    <>
-                        <h1> { username }'s Garden </h1>
-                        <h6>experience level: {experienceLevel}</h6>
-                        <h6>grow zone: {zone}</h6>
-                        {userId === id && <button onClick={this.handleClick} >Add New Plant Friend</button> }
-                        {this.displayUserPlants()}
-                        {this.displayFavoritePlantSpecies()}
-                        
-                    </>
-                )
-                }       
-            </div>
-        )
-    }
+          <>
+            <h1> {username}'s Garden </h1>
+            <h2>experience level: {experienceLevel}</h2>
+            <h2>grow zone: {zone}</h2>
+            {user.id === id && (
+              <button onClick={this.handleClick}>Add New Plant Friend</button>
+            )}
+            {this.displayUserPlants()}
+            {this.displayFavoritePlantSpecies()}
+          </>
+        )}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.userReducer.id,
-    user: state.userReducer
-  }
-}
+    user: state.userReducer,
+    username: state.greenhouseReducer.greenhouse.username,
+    zone: state.greenhouseReducer.greenhouse.zone,
+    experienceLevel: state.greenhouseReducer.greenhouse.experience_level,
+    id: state.greenhouseReducer.greenhouse.id,
+    favoritePlantSpecies: state.greenhouseReducer.greenhouse.favorite_plant_species,
+    userPlants: state.greenhouseReducer.greenhouse.user_plants
+  };
+};
 
-export default connect( mapStateToProps )( UserPlants );
+export default connect(mapStateToProps, {setGreenhouse})(UserPlants);

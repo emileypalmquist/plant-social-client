@@ -3,7 +3,7 @@ import { ADD_PLANTS, ADD_USER_PLANTS } from '../actionTypes';
 
 const initialState = {
     plants: [],
-    userPlants: []
+    userPlants: [],
 };
 
 const plantReducer = (state = initialState, action) => {
