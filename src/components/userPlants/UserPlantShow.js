@@ -1,7 +1,9 @@
 import {useEffect, useState} from  "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom"
 import { addErrors, removeErrors } from "../../redux/actions/statusActions";
 import {api} from "../../services/api"
+import CareNotes from "./CareNotes"
 
 const UserPlantShow = ({removeErrors, addErrors, location, match}) => {
     const [showPlant, setPlant] = useState({})
@@ -34,6 +36,8 @@ const UserPlantShow = ({removeErrors, addErrors, location, match}) => {
                 <h6>difficulty: { showPlant?.difficulty }</h6>
                 <h6>moisture: { showPlant?.moisture }</h6>
                 {showPlant?.indoor ? <h6>indoor</h6> : <h6>outdoor</h6>}
+                <Link to={`/greenhouse/${showPlant?.user_id}`}><button>Check out my greenhouse</button></Link>
+                <CareNotes />
             </>
                 :
                 <h1>No Plant Found</h1>

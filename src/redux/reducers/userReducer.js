@@ -32,7 +32,6 @@ const userReducer = (state = initialState, action) => {
       };
     }
     case REMOVE_USER_PLANT: {
-      console.log(action.payload);
       return {
         ...state,
         user_plants: state.user_plants.filter((p) => p.id !== action.payload),

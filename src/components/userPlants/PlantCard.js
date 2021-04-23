@@ -4,9 +4,11 @@ const PlantCard = ({
   userPlant: { name, id, plant, photo, user_id },
   userPlant,
   history,
+  location,
   user,
   deleteUserPlant,
 }) => {
+
   return (
     <div className="plant-card" onClick={() => history.push({pathname: `/plant/${id}`, state: {userPlant}})}>
       {photo.includes("https://") ? (
@@ -20,7 +22,7 @@ const PlantCard = ({
       )}
       <h3>{name}</h3>
       <h3>{plant.name}</h3>
-      {user_id === user.id && (
+      {user_id === user.id && location.pathname != "/community-garden" && (
         <button onClick={(e) => deleteUserPlant(e, id)}>delete</button>
       )}
     </div>

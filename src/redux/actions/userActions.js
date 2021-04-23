@@ -120,7 +120,6 @@ export const deleteUserPlant = (e, id) => {
   e.stopPropagation();
 
   return (dispatch) => {
-    console.log(id);
     fetch(API + `/user_plants/${id}`, {
       method: "DELETE",
       headers: authHeaders,
