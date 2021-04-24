@@ -1,8 +1,11 @@
 import React, {useState} from "react"
+import {Comment, Header} from "semantic-ui-react"
 import {api} from "../../services/api"
 import {connect} from "react-redux"
+import {addCareNoteToUserPlant} from "../../redux/actions/plantActions"
 
-const CareNotes = ({userPlantId, careNotes, plantUserId, userId}) => {
+
+const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUserPlant}) => {
     const [content, setContent] = useState('')
 
     const handleSubmit = (e) => {
@@ -13,34 +16,61 @@ const CareNotes = ({userPlantId, careNotes, plantUserId, userId}) => {
         }
         setContent('')
         api.userPlants.createCareNote(note)
-            .then(data => console.log(data))
+            .then(data => addCareNoteToUserPlant(data))
+    }
+
+    const formatDate = (date) => {
+        let d = new Date(date)
+        let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+        let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+        let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+        return `${mo} ${da}, ${ye}`
     }
 
     const displayCareNotes = () => {
-        // may want to display created at
-        return careNotes.map(cn => <li key={cn.id}>{cn.content}</li>)
+        return (
+        <div id="careNotesSection"> 
+            {careNotes.map(cn => (
+                <Comment  key={cn.id}>
+                <Comment.Content>
+                    <Comment.Metadata>
+                    <div> {formatDate(cn.created_at)}</div>
+                    </Comment.Metadata>
+                    <Comment.Text>{cn.content}</Comment.Text>
+                    <Comment.Actions>
+                    <Comment.Action onClick={console.log}>Like</Comment.Action>
+                    </Comment.Actions>
+                </Comment.Content>
+                </Comment>
+        
+            ))}
+        </div>
+        )
     }
 
     return (
         <div>
-            <section>
-                <h3>My Care Notes</h3>
-                <ul>
-                    {displayCareNotes() }
-                </ul>
-            </section>
-            { userId === plantUserId && 
-                <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    />
-                    <input
-                        type="submit"
-                    />
-                </form>
-            }
+        <section >
+            <Comment.Group >
+            <Header as='h3' dividing>
+                My Care Notes
+            </Header>
+                {displayCareNotes() }
+            </Comment.Group >
+        </section> 
+        
+        { userId === plantUserId && 
+            <form onSubmit={handleSubmit} className="care-notes-form">
+                <input 
+                    type="text"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+                <input
+                    type="submit"
+                />
+            </form>
+        }
         </div>
     )
 }
@@ -51,4 +81,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CareNotes);
+export default connect(mapStateToProps, {addCareNoteToUserPlant})(CareNotes);

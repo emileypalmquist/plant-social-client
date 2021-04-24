@@ -1,12 +1,13 @@
 import {useEffect, useState} from  "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom"
+import {Card, Icon, Image} from "semantic-ui-react"
 import { addErrors, removeErrors } from "../../redux/actions/statusActions";
 import {setUserPlantShow} from "../../redux/actions/plantActions"
 import {api} from "../../services/api"
 import CareNotes from "./CareNotes"
 
-const UserPlantShow = ({removeErrors, addErrors, showPlant, location, match, setUserPlantShow}) => {
+const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location, match, setUserPlantShow}) => {
     
 
     const handleResponse = (resp) => {
@@ -21,26 +22,41 @@ const UserPlantShow = ({removeErrors, addErrors, showPlant, location, match, set
     }
 
     useEffect(() => {
-        if (location.state?.userPlant) {
-            setUserPlantShow(location.state.userPlant)
+        const found = userPlants.filter(p => p.id == match.params.id)
+     
+        if (found.length) {
+            setUserPlantShow(found[0])
             // removeErrors()
         } else {
           api.userPlants.getUserPlant(match.params.id).then(resp => handleResponse(resp))
         }
-    }, [])
+    }, [userPlants])
 
     return (
         <div className="plant-show-container">
             { Object.keys(showPlant).length ? 
             <>
-                <img src={`http://localhost:3000${showPlant?.photo}`} alt='user plant' className="plant-image" />
-                <h3>{ showPlant?.name }</h3>
-                <h3>{ showPlant?.plant?.name }</h3>
-                <h6>difficulty: { showPlant?.difficulty }</h6>
-                <h6>moisture: { showPlant?.moisture }</h6>
-                {showPlant?.indoor ? <h6>indoor</h6> : <h6>outdoor</h6>}
-                <Link to={`/greenhouse/${showPlant?.user_id}`}><button>Check out my greenhouse</button></Link>
-                <CareNotes careNotes={showPlant?.care_notes} userPlantId={showPlant?.id} plantUserId={showPlant?.user_id}/>
+            <Card>
+                <Image src={`http://localhost:3000${showPlant?.photo}`} wrapped ui={false} />
+                <Card.Content>
+                <Card.Header>{ showPlant?.name }</Card.Header>
+                <Card.Meta>
+                    <span className='date'>{ showPlant?.plant?.name }</span>
+                </Card.Meta>
+                <Card.Description>
+                    difficulty: { showPlant?.difficulty } <br/>
+                    moisture: { showPlant?.moisture } <br/>
+                    {showPlant?.indoor ? "indoor" : "outdoor"}
+                </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                <Link to={`/greenhouse/${showPlant?.user_id}`}><button>Check out my greenhouse</button></Link><br/>
+                    <Icon name='thumbs up outline' />
+                    <Icon name='thumbs up' />
+                    22 Likes
+                </Card.Content>
+            </Card>
+            <CareNotes careNotes={showPlant?.care_notes} userPlantId={showPlant?.id} plantUserId={showPlant?.user_id}/> 
             </>
                 :
                 <h1>No Plant Found</h1>
@@ -51,7 +67,8 @@ const UserPlantShow = ({removeErrors, addErrors, showPlant, location, match, set
 
 const mapStateToProps = (state) => {
     return {
-        showPlant: state.plantReducer.userPlantShow
+        showPlant: state.plantReducer.userPlantShow,
+        userPlants: state.plantReducer.userPlants
     }
 }
 

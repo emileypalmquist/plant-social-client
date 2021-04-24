@@ -10,7 +10,7 @@ const PlantCard = ({
 }) => {
 
   return (
-    <div className="plant-card" onClick={() => history.push({pathname: `/plant/${id}`, state: {userPlant}})}>
+    <div className="plant-card" onClick={() => history.push(`/plant/${id}`)}>
       {photo.includes("https://") ? (
         <img src={photo} alt="plant" className="plant-card" />
       ) : (

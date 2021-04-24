@@ -1,5 +1,5 @@
 // import action type variables from actiontypes.js
-import { ADD_PLANTS, ADD_USER_PLANTS, SET_USER_PLANT_SHOW, REMOVE_USER_PLANT, ADD_USER_PLANT } from '../actionTypes';
+import { ADD_PLANTS, ADD_USER_PLANTS, SET_USER_PLANT_SHOW, REMOVE_USER_PLANT, ADD_USER_PLANT, ADD_CARE_NOTE } from '../actionTypes';
 
 const initialState = {
     plants: [],
@@ -37,6 +37,13 @@ const plantReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userPlants: [action.payload, ...state.userPlants]
+            }
+        }
+        case ADD_CARE_NOTE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.user_plant_id ? {...p, care_notes: [...p.care_notes, action.payload]} : p)
+            return {
+              ...state,
+              userPlants: updatedPlants
             }
         }
         default:

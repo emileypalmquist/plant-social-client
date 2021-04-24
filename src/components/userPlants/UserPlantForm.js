@@ -12,7 +12,7 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         // need to refector last arguement once get plant species implemented
-        newUserPlant(history, name, difficulty, moisture, indoor, photo, userId, 1)
+        newUserPlant({name, difficulty, moisture, indoor, photo, userId, plantId: 1}, history)
     }
     
     return (

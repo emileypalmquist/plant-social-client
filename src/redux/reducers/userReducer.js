@@ -3,6 +3,7 @@ import {
   SIGN_OUT,
   ADD_USER_PLANT,
   REMOVE_USER_PLANT,
+  ADD_CARE_NOTE
 } from "../actionTypes";
 
 const initialState = {
@@ -36,6 +37,13 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user_plants: state.user_plants.filter((p) => p.id !== action.payload),
       };
+    }
+    case ADD_CARE_NOTE: {
+      const updatedPlants = state.user_plants.map(p => p.id === action.payload.user_plant_id ? {...p, care_notes: [...p.care_notes, action.payload]} : p)
+      return {
+        ...state,
+        user_plants: updatedPlants
+      }
     }
     default:
       return state;

@@ -66,17 +66,48 @@ a:hover {
 }
 
 .plant-image {
-  max-height: 30rem;
-  max-height: 30rem;
+  max-height: 40vh;
+  max-width: 100vw;
 }
 
-.plant-show-container {
+.plant-show-container { 
   /* not responsive- need responsive way to center div but now content within */
-  /* margin-left: 15rem; */
-  /* display: flex;
-  flex-direction: column;
-  align-content: center; */
- 
+  margin-top: 30px;
+  display: flex; 
+  align-content: center;
+  justify-content: space-around;
+}
+
+#careNotesSection {
+  max-height: 350px;
+  overflow-y:auto;
+  position: relative;
+  
+} 
+
+.ui.card {
+  width: 400px;
+}
+
+@media only screen and (max-width: 700px) {
+  .plant-show-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+  }
+  #careNotesSection {
+    overflow-y:auto;
+    position: relative;
+    margin: 20px;
+  } 
+  .ui.card {
+    width: 350px
+  }
+}
+
+.care-notes-form {
+   position: static;
 }
 
 /* 
