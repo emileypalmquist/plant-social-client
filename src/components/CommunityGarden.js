@@ -1,14 +1,10 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { setPlants } from "../redux/actions/plantActions";
 
 import PlantCard from './userPlants/PlantCard'
 
-const CommunityGarden = ({setPlants, userPlants, history, user, location}) => {
+const CommunityGarden = ({userPlants, history, user, location}) => {
 
-  useEffect(() => {
-    setPlants();
-  }, []);
 
   return (
     <>
@@ -27,4 +23,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setPlants })(CommunityGarden);
+export default connect(mapStateToProps)(CommunityGarden);

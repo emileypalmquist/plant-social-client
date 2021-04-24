@@ -1,6 +1,8 @@
 // Plants reducer action types
 export const ADD_PLANTS = "ADD_PLANTS";
 export const ADD_USER_PLANTS = "ADD_USER_PLANTS";
+export const SET_USER_PLANT_SHOW = "SET_USER_PLANT_SHOW";
+export const ADD_CARE_NOTE = "ADD_CARE_NOTE"
 
 //*****************************//
 // User reducer action types
@@ -17,3 +19,4 @@ export const REMOVE_ERROR = "REMOVE_ERROR";
 //*****************************//
 // greenhouse reducer action types
 export const SET_GREENHOUSE = "SET_GREENHOUSE"
+export const RESET_GREENHOUSE = "RESET_GREENHOUSE"

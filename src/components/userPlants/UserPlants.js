@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PlantCard from "./PlantCard";
-import {setGreenhouse} from "../../redux/actions/greenhouseActions"
-
-const API = process.env.REACT_APP_BACKEND_BASE_URL;
+import {setGreenhouse, resetGreenhouse} from "../../redux/actions/greenhouseActions"
+import {api} from "../../services/api"
 
 class UserPlants extends Component {
   // need to refactor into redux store
@@ -33,39 +32,27 @@ class UserPlants extends Component {
     if (id != user.id) {
       this.getUserShow(id);
     } else {
-      this.setUserState(user);
-    }
-  };
-
-  setUserState = (user) => {
-    this.props.setGreenhouse(user)
-    this.setState({ error: null });
+      this.props.resetGreenhouse();
+    } 
   };
 
   getUserShow = (id) => {
     const token = localStorage.token;
 
-    fetch(API + "/users/" + id, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then((resp) => resp.json())
+    api.userPlants.getUserGreenhouse(id)
       .then((data) => {
         if (data.error) {
-          this.setState({ error: data.error });
+          // this.setState({ error: data.error });
         } else {
           this.props.setGreenhouse(data);
-          this.setState({ error: null });
+          // this.setState({ error: null });
         }
       })
       .catch(console.log);
   };
 
-  displayUserPlants = () => {
-    // const { userPlants, username } = this.state;
-    const { user, username, history, userPlants, location } = this.props;
+  displayUserPlants = (username, userPlants) => {
+    const { user, history, location } = this.props;
 
     return userPlants.length === 0 ? (
       <h1>No Plants &#9785; </h1>
@@ -85,8 +72,8 @@ class UserPlants extends Component {
     );
   };
 
-  displayFavoritePlantSpecies = () => {
-    const { username, favoritePlantSpecies } = this.props
+  displayFavoritePlantSpecies = (username, favoritePlantSpecies) => {
+   
     return favoritePlantSpecies.length === 0 ? (
       <h1>No Favorite Plants &#9785; </h1>
     ) : (
@@ -104,10 +91,27 @@ class UserPlants extends Component {
     console.log('will add friend request when backend built')
   }
 
+  displayLoggedInUser = ({username, experience_level, zone, user_plants, favorite_plant_species}) => {
+   
+    return (
+      <div>
+        <h1> {username}'s Garden </h1>
+          <h2>experience level: {experience_level}</h2>
+          <h2>grow zone: {zone}</h2>
+          <button onClick={this.handleNewPlantClick}>Add New Plant Friend</button>
+          {this.displayUserPlants(username, user_plants)}
+          {this.displayFavoritePlantSpecies(username, favorite_plant_species)}
+      </div>
+    )
+  }
+
   render() {
-    const { user, username, zone, experienceLevel, id} = this.props
+    const { user, username, zone, experienceLevel, id, favoritePlantSpecies, userPlants, match: { params }} = this.props
     const {error} = this.state
    
+    if (user.id == params.id) {
+      return this.displayLoggedInUser(user)
+    }
     return (
       <div>
         {error ? (
@@ -117,13 +121,9 @@ class UserPlants extends Component {
             <h1> {username}'s Garden </h1>
             <h2>experience level: {experienceLevel}</h2>
             <h2>grow zone: {zone}</h2>
-            {user.id === id ? (
-              <button onClick={this.handleNewPlantClick}>Add New Plant Friend</button>
-            ) : (
-              <button onClick={this.handleAddFriendClick}>Add Friend</button>
-            )}
-            {this.displayUserPlants()}
-            {this.displayFavoritePlantSpecies()}
+            <button onClick={this.handleAddFriendClick}>Add Friend</button>
+            {this.displayUserPlants(username, userPlants)}
+            {this.displayFavoritePlantSpecies(username, favoritePlantSpecies)}
           </>
         )}
       </div>
@@ -132,7 +132,7 @@ class UserPlants extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {username,zone, experience_level,id, favorite_plant_species, user_plants} = state.greenhouseReducer.greenhouse
+  const {username, zone, experience_level, id, favorite_plant_species, user_plants} = state.greenhouseReducer.greenhouse
   
   return {
     user: state.userReducer,
@@ -145,4 +145,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {setGreenhouse})(UserPlants);
+export default connect(mapStateToProps, {setGreenhouse, resetGreenhouse})(UserPlants);

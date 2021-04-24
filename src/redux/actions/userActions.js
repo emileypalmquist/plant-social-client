@@ -126,8 +126,8 @@ export const deleteUserPlant = (e, id) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        dispatch({ type: REMOVE_USER_PLANT, payload: id });
         dispatch({ type: ADD_ERROR, payload: data.messages });
+        dispatch({ type: REMOVE_USER_PLANT, payload: id });
       })
       .catch(console.log);
   };

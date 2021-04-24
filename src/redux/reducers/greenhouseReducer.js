@@ -1,12 +1,12 @@
-import { SET_GREENHOUSE } from '../actionTypes';
+import { SET_GREENHOUSE, RESET_GREENHOUSE} from '../actionTypes';
 
 const initialState = {
    greenhouse: {
-       username: null,
-       zone: null,
-       experience_level: null,
-       id: null,
-       favorite_plant_species: [],
+        username: null,
+        zone: null,
+        experience_level: null,
+        id: null,
+        favorite_plant_species: [],
         user_plants: []
    }
 };
@@ -17,6 +17,19 @@ const greenhouseReducer = (state = initialState, action) => {
             return {
                 ...state,
                 greenhouse: action.payload
+            }
+        }
+        case RESET_GREENHOUSE: {
+            return {
+                ...state, 
+                greenhouse: {
+                    username: null,
+                    zone: null,
+                    experience_level: null,
+                    id: null,
+                    favorite_plant_species: [],
+                    user_plants: []
+               }
             }
         }
         default:
