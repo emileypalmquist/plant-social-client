@@ -36,7 +36,7 @@ const plantReducer = (state = initialState, action) => {
         case ADD_USER_PLANT: {
             return {
                 ...state,
-                userPlants: [...state.userPlants, action.payload]
+                userPlants: [action.payload, ...state.userPlants]
             }
         }
         default:

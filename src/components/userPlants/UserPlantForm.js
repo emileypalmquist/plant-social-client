@@ -17,6 +17,7 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
     
     return (
         <div className='form-container'>
+            <button onClick={()=> history.push(`/greenhouse/${userId}`)}>X</button>
             <h1>Add a Plant to your Garden</h1>
             <form onSubmit={handleSubmit}>
             <label htmlFor='name'>name: </label>
