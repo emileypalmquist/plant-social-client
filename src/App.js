@@ -6,6 +6,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import {Message} from "semantic-ui-react"
 import { reAuth } from "./redux/actions/userActions";
 import { setPlants } from "./redux/actions/plantActions";
 import Nav from "./components/Nav";
@@ -48,9 +49,9 @@ class App extends Component {
 
           {errors &&
             errors.map((error) => (
-              <p className="error" key={Math.random}>
-                {error}
-              </p>
+              <Message warning key={Math.random}>
+                <Message.Header>{error}</Message.Header>
+              </Message>
             ))}
 
           <main className="app-content">

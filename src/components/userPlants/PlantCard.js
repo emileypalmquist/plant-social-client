@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import {Button} from "semantic-ui-react"
 const PlantCard = ({
   userPlant: { name, id, plant, photo, user_id },
-  userPlant,
   history,
   location,
   user,
@@ -21,11 +20,15 @@ const PlantCard = ({
           className="plant-card-image"
         />
       )}
-      <h3>{name}</h3>
-      <h3>{plant.name}</h3>
-      {user_id === user.id && location.pathname != "/community-garden" && (
-        <Button onClick={(e) => deleteUserPlant(e, id)}>delete</Button>
-      )}
+      <section className="plant-card-content">
+        <h3 className="user-plant-name">{name}</h3>
+        <h3 className="plant-name">{plant.name}</h3>
+        {user_id === user.id && location.pathname != "/community-garden" && (
+          <div id="card-button-container">
+            <Button onClick={(e) => deleteUserPlant(e, id)} id="plant-card-button">delete</Button>
+          </div>
+        )}
+      </section>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const Explore = ({setPlants, userPlants}) => {
 
   return (
     <>
-        <h1>Explore Plant Species</h1>
+        <h1 id="title">Explore Plant Species</h1>
         <div className='plant-cards-container'>
           
         </div>

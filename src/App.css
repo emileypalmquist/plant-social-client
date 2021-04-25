@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
+
 
 .app-container {
   background-color: #dad7cd;
@@ -11,7 +13,7 @@
   flex: 1;
 }
 
-nav {
+header {
   background-color: #a3b18a;
   position: sticky;
   padding: 15px;
@@ -21,8 +23,9 @@ nav {
 }
 
 .nav-item {
-  margin: 0 5px;
+  margin: 0 15px;
   font-size: large;
+  word-spacing: -.1em;
 }
 
 footer {
@@ -46,6 +49,17 @@ a:hover {
   font-weight: bold;
 }
 
+#title {
+  padding-left: 2em;
+  font-family: 'Goudy Bookletter 1911', serif;
+  font-size: xxx-large;
+}
+
+.garden-details {
+  color: rgba(0,0,0,.68);
+  padding: 0 0 2em 8em;
+}
+
 .form-container {
   text-align: center;
   background-color: white;
@@ -60,6 +74,34 @@ a:hover {
   justify-content: space-around;
 }
 
+.plant-card-content {
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+h3.user-plant-name {
+  font-size: large;
+  margin-top: -5px;
+  padding: .7em 0em 0em 1.05em;
+  margin-bottom: 0;
+  font-weight: 550;
+}
+
+h3.plant-name{
+  font-size: 1em;
+  padding-left: 20px;
+  margin: 0;
+  font-weight: 100 ;
+  color: rgba(0,0,0,.4);
+  padding: .2em 0em .8em 1.4em;
+}
+
+#plant-card-button {
+  width: 10em;
+  transform: translateX(40%);
+  margin-bottom: .5em;
+}
+
 .plant-card-image {
   max-height: 250px;
   width: 250px;
@@ -70,6 +112,10 @@ a:hover {
   max-width: 100vw;
 }
 
+#card-button-container {
+  border-top: 1px solid rgba(0,0,0,.05)!important;
+  padding-top: .5em;
+}
 .plant-show-container { 
   /* not responsive- need responsive way to center div but now content within */
   margin-top: 30px;

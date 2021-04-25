@@ -5,7 +5,7 @@ import "../App.css";
 
 const Nav = ({ handleLogout, username, userId }) => {
   return (
-    <nav>
+    <header>
       {!localStorage.token ? (
         <>
           <NavLink exact to="/" className="nav-item">
@@ -42,7 +42,7 @@ const Nav = ({ handleLogout, username, userId }) => {
           </NavLink>
         </>
       )}
-    </nav>
+    </header>
   );
 };
 

@@ -38,7 +38,6 @@ class UserPlants extends Component {
   };
 
   getUserShow = (id) => {
-    const token = localStorage.token;
 
     api.userPlants.getUserGreenhouse(id)
       .then((data) => {
@@ -96,10 +95,12 @@ class UserPlants extends Component {
    
     return (
       <div>
-        <h1> {username}'s Garden </h1>
-          <h2>experience level: {experience_level}</h2>
-          <h2>grow zone: {zone}</h2>
-          <Button onClick={this.handleNewPlantClick}>Add New Plant Friend</Button>
+        <h1 id="title"> {username}'s Garden </h1>
+          <div className="garden-details">
+            <h2>experience level: {experience_level}</h2>
+            <h2>grow zone: {zone}</h2>
+            <Button onClick={this.handleNewPlantClick}>Add New Plant Friend</Button>
+          </div>
           {this.displayUserPlants(username, user_plants)}
           {this.displayFavoritePlantSpecies(username, favorite_plant_species)}
       </div>
@@ -107,7 +108,7 @@ class UserPlants extends Component {
   }
 
   render() {
-    const { user, username, zone, experienceLevel, id, favoritePlantSpecies, userPlants, match: { params }} = this.props
+    const { user, username, zone, experienceLevel, favoritePlantSpecies, userPlants, match: { params }} = this.props
     const {error} = this.state
    
     if (user.id == params.id) {
@@ -119,7 +120,7 @@ class UserPlants extends Component {
           <p className="error">{error}</p>
         ) : (
           <>
-            <h1> {username}'s Garden </h1>
+            <h1 id="title"> {username}'s Garden </h1>
             <h2>experience level: {experienceLevel}</h2>
             <h2>grow zone: {zone}</h2>
             <Button onClick={this.handleAddFriendClick}>Add Friend</Button>
