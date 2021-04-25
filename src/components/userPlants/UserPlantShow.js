@@ -1,7 +1,7 @@
 import {useEffect, useState} from  "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom"
-import {Card, Icon, Image} from "semantic-ui-react"
+import {Card, Icon, Image, Button} from "semantic-ui-react"
 import { addErrors, removeErrors } from "../../redux/actions/statusActions";
 import {setUserPlantShow} from "../../redux/actions/plantActions"
 import {api} from "../../services/api"
@@ -37,7 +37,11 @@ const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location
             { Object.keys(showPlant).length ? 
             <>
             <Card>
+            {showPlant?.photo.includes("https://") ? (
+                <Image src={showPlant?.photo} wrapped ui={false} />
+                ) : (
                 <Image src={`http://localhost:3000${showPlant?.photo}`} wrapped ui={false} />
+            )}
                 <Card.Content>
                 <Card.Header>{ showPlant?.name }</Card.Header>
                 <Card.Meta>
@@ -50,7 +54,7 @@ const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location
                 </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
-                <Link to={`/greenhouse/${showPlant?.user_id}`}><button>Check out my greenhouse</button></Link><br/>
+                <Link to={`/greenhouse/${showPlant?.user_id}`}><Button>Check out my greenhouse</Button></Link><br/>
                     <Icon name='thumbs up outline' />
                     <Icon name='thumbs up' />
                     22 Likes

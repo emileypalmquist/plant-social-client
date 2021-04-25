@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {Button} from "semantic-ui-react"
 import PlantCard from "./PlantCard";
 import {setGreenhouse, resetGreenhouse} from "../../redux/actions/greenhouseActions"
 import {api} from "../../services/api"
@@ -98,7 +99,7 @@ class UserPlants extends Component {
         <h1> {username}'s Garden </h1>
           <h2>experience level: {experience_level}</h2>
           <h2>grow zone: {zone}</h2>
-          <button onClick={this.handleNewPlantClick}>Add New Plant Friend</button>
+          <Button onClick={this.handleNewPlantClick}>Add New Plant Friend</Button>
           {this.displayUserPlants(username, user_plants)}
           {this.displayFavoritePlantSpecies(username, favorite_plant_species)}
       </div>
@@ -121,7 +122,7 @@ class UserPlants extends Component {
             <h1> {username}'s Garden </h1>
             <h2>experience level: {experienceLevel}</h2>
             <h2>grow zone: {zone}</h2>
-            <button onClick={this.handleAddFriendClick}>Add Friend</button>
+            <Button onClick={this.handleAddFriendClick}>Add Friend</Button>
             {this.displayUserPlants(username, userPlants)}
             {this.displayFavoritePlantSpecies(username, favoritePlantSpecies)}
           </>

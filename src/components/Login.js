@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import {Form, Button} from "semantic-ui-react"
 import { login } from '../redux/actions/userActions'
 
 const Login = ({login, history}) => {
@@ -14,7 +15,7 @@ const Login = ({login, history}) => {
   return (
     <div className='form-container'>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <label htmlFor='username'>username: </label>
               <input id='username' type='text' name='username' placeholder='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
           <br/>
@@ -22,10 +23,10 @@ const Login = ({login, history}) => {
               <input id='password' type={showPassword ? 'text' : 'password'} name='password' placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
           <br/>
           <label htmlFor='submit'/>
-          <input id='submit' type='submit' />
-        </form>
+          <Button type='submit'>Submit</Button>
+        </Form>
 
-        <button onClick={() => setShowPassword(!showPassword)}>Show Password</button>
+        <Button onClick={() => setShowPassword(!showPassword)}>Show Password</Button>
     </div>
   )
 }

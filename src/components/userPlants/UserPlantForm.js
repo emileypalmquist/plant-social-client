@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import {Button, Form, Checkbox} from 'semantic-ui-react'
 import { newUserPlant } from '../../redux/actions/userActions'
 
 const UserPlantForm = ({ history, newUserPlant, userId }) => {
@@ -17,27 +18,31 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
     
     return (
         <div className='form-container'>
-            <button onClick={()=> history.push(`/greenhouse/${userId}`)}>X</button>
+            <Button onClick={()=> history.push(`/greenhouse/${userId}`)} className="cancel-button">X</Button>
             <h1>Add a Plant to your Garden</h1>
-            <form onSubmit={handleSubmit}>
-            <label htmlFor='name'>name: </label>
-                <input id='name' type='text' name='name' placeholder='name' value={name} onChange={(e) => setName(e.target.value)}/>
-            <br/>
-            <label htmlFor='difficulty'>difficulty: </label>
-                <input id='difficulty' type='number' min="1" max="5" name='difficulty' value={difficulty} onChange={(e) => setDifficulty(e.target.value)}/>
-            <br/>
-            <label htmlFor='moisture'>moisture: </label>
-                <input id='moisture' type='number' min="1" max="5" name='moisture' value={moisture} onChange={(e) => setMoisture(e.target.value)}/>
-            <br/>
-            <label htmlFor='indoor'>indoor: </label>
-                <input id='indoor' type='checkbox' name='indoor' checked={indoor} onChange={(e) => setIndoor(e.target.checked)}/>
-            <br/>
-            <label htmlFor='photo'>photo: </label>
-                <input id='photo' type='file' name='photo' onChange={(e) => setPhoto(e.target.files[0])}/>
-            <br/>
-            <label htmlFor='submit'/>
-            <input id='submit' type='submit' />
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <Form.Field>
+                    <label htmlFor='name'>name: </label>
+                    <input  id='name' type='text' name='name' placeholder='name' value={name} onChange={(e) => setName(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                    <label htmlFor='difficulty'>difficulty: </label>
+                    <input id='difficulty' type='number' min="1" max="5" name='difficulty' value={difficulty} onChange={(e) => setDifficulty(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                    <label htmlFor='moisture'>moisture: </label>
+                    <input id='moisture' type='number' min="1" max="5" name='moisture' value={moisture} onChange={(e) => setMoisture(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                    <Checkbox label='Indoor' id='indoor' type='checkbox' name='indoor' checked={indoor} onChange={(e) => setIndoor(e.target.checked)}/>
+                </Form.Field>
+                <Form.Field>
+                    <label htmlFor='photo'>photo: </label>
+                    <input id='photo' type='file' name='photo' onChange={(e) => setPhoto(e.target.files[0])}/>
+                </Form.Field>
+            
+                <Button type='submit' >Create</Button>
+            </Form>
         </div>
     )
 }

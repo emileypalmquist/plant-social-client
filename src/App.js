@@ -27,7 +27,14 @@ class App extends Component {
   componentDidMount() {
     if (token) {
       this.props.reAuth();
-      this.props.setPlants();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {user, userPlants, setPlants} = this.props
+   
+    if (prevProps.user.id !== user.id && userPlants.length == 0) {
+      setPlants();
     }
   }
 
@@ -84,6 +91,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer,
     errors: state.statusReducer.errors,
+    userPlants: state.plantReducer.userPlants
   };
 };
 

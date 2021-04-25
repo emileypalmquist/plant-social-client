@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Comment, Header} from "semantic-ui-react"
+import {Comment, Header, Input} from "semantic-ui-react"
 import {api} from "../../services/api"
 import {connect} from "react-redux"
 import {addCareNoteToUserPlant} from "../../redux/actions/plantActions"
@@ -61,14 +61,7 @@ const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUs
         
         { userId === plantUserId && 
             <form onSubmit={handleSubmit} className="care-notes-form">
-                <input 
-                    type="text"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
-                <input
-                    type="submit"
-                />
+                <Input fluid icon='arrow circle up' placeholder='care note' value={content} action="" onChange={(e) => setContent(e.target.value)}/>
             </form>
         }
         </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import {Form, Button} from "semantic-ui-react"
 import { login } from '../redux/actions/userActions'
 
 const SignUp = ({login, history}) => {
@@ -27,35 +28,36 @@ const SignUp = ({login, history}) => {
   return (
     <div className='form-container'>
         <h1>Create an Account</h1>
-        <form onSubmit={ handleSubmit }>
+        <Form onSubmit={ handleSubmit }>
+        <Form.Field>
           <label htmlFor='username'>Username: </label>
           <input id='username' type='text' name='username' placeholder='username' onChange={(e) => setUsername(e.target.value)} />
-          <br/>
-
+          </Form.Field>
+          <Form.Field>
           <label htmlFor='password'>Password: </label>
           <input id='password' type={showPassword ? 'text' : 'password'} name='password' placeholder='password' onChange={(e) => setPassword(e.target.value)} />
-          <br/>
-
+          </Form.Field>
+          <Form.Field>
           <label htmlFor='passwordConfirmation'>Password Confirmation: </label>
           <input id='passwordConfirmation' type={showPassword ? 'text' : 'password'} name='passwordConfirmation' placeholder='password confirmation' onChange={(e) => setPasswordConfirmation(e.target.value)}/>
-          <br/>
-
+          </Form.Field>
+          <Form.Field>
           <label htmlFor='email'>Email: </label>
           <input id='email' type='text' name='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
-          <br/>
-
+          </Form.Field>
+          <Form.Field>
           <label htmlFor='growZone'>Grow Zone: </label>
           <input id='growZone' type='text' name='growZone' placeholder='grow zone' onChange={(e) => setGrowZone(e.target.value)} />
-          <br/>
-
+          </Form.Field>
+          <Form.Field>
           <label htmlFor='experience'>Experience: </label>
           <input id='experience' type='text' name='experience' placeholder='experience' onChange={(e) => setExperience(e.target.value)} />
-          <br/>
+          </Form.Field>
 
           <label htmlFor='submit'/>
-          <input id='submit' type='submit' value="Let's Go!"/>
-        </form>
-        <button onClick={() => setShowPassword(!showPassword)}>Show Passwords</button>
+          <Button type='submit'>Let's Go!</Button>
+        </Form>
+        <Button onClick={() => setShowPassword(!showPassword)}>Show Passwords</Button>
     </div>
   )
 }

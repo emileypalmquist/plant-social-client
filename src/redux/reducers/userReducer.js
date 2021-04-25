@@ -39,7 +39,7 @@ const userReducer = (state = initialState, action) => {
       };
     }
     case ADD_CARE_NOTE: {
-      const updatedPlants = state.user_plants.map(p => p.id === action.payload.user_plant_id ? {...p, care_notes: [...p.care_notes, action.payload]} : p)
+      const updatedPlants = state.user_plants.map(p => p.id === action.payload.user_plant_id ? {...p, care_notes: [action.payload, ...p.care_notes]} : p)
       return {
         ...state,
         user_plants: updatedPlants
