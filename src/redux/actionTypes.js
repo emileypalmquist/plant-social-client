@@ -3,6 +3,7 @@ export const ADD_PLANTS = "ADD_PLANTS";
 export const ADD_USER_PLANTS = "ADD_USER_PLANTS";
 export const SET_USER_PLANT_SHOW = "SET_USER_PLANT_SHOW";
 export const ADD_CARE_NOTE = "ADD_CARE_NOTE"
+export const REMOVE_CARE_NOTE = "REMOVE_CARE_NOTE"
 
 //*****************************//
 // User reducer action types

@@ -104,6 +104,14 @@ const createUserPlant = ({
         .then((resp) => resp.json())
 }
 
+const deleteCareNote = (id) => {
+  return fetch(API + `/care_notes/${id}`, {
+    method: "DELETE",
+    headers: authHeaders()
+  })
+  .then(resp => resp.json())
+}
+
 export const api = {
     auth: {
         login, reAuth
@@ -115,7 +123,8 @@ export const api = {
         createCareNote,
         getAllUserPlants,
         deleteUserPlant,
-        createUserPlant
+        createUserPlant,
+        deleteCareNote
     }
     
 }

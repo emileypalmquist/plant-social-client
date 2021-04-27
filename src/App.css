@@ -77,6 +77,8 @@ a:hover {
 .plant-card-content {
   background-color: white;
   margin-bottom: 20px;
+ border-bottom-right-radius: .5em;
+ border-bottom-left-radius: .5em;
 }
 
 h3.user-plant-name {
@@ -105,6 +107,8 @@ h3.plant-name{
 .plant-card-image {
   max-height: 250px;
   width: 250px;
+  border-top-left-radius: .5em;
+  border-top-right-radius: .5em;
 }
 
 .plant-image {
@@ -153,7 +157,8 @@ div.comment {
     margin: 20px;
   } 
   .ui.card {
-    width: 350px
+    width: 350px;
+    margin-bottom: 3em;
   }
 }
 
@@ -166,6 +171,11 @@ div.comment {
   top: 80px;
   right: 20px;
   margin-right: 10px;
+}
+
+a#delete-note {
+  padding-left: 2em;
+  color: #bf7c7f
 }
 
 /* 

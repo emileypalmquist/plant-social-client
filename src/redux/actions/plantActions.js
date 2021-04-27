@@ -1,4 +1,4 @@
-import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE } from "../actionTypes";
+import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE } from "../actionTypes";
 import {api} from "../../services/api"
 
 export const setPlants = () => {
@@ -27,6 +27,15 @@ export const addCareNoteToUserPlant = (careNote) => {
   return {
     type: ADD_CARE_NOTE,
     payload: careNote
+  }
+}
+
+export const  removeCareNote = (id, userPlantId) => {
+  return (dispatch) => {
+    dispatch({
+      type: REMOVE_CARE_NOTE,
+      payload: {id, userPlantId}
+    })
   }
 }
 
