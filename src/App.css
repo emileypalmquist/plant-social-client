@@ -129,7 +129,7 @@ h3.plant-name{
 }
 
 #careNotesSection {
-  max-height: 350px;
+  max-height: 270px;
   overflow-y:auto;
   position: relative;
   width: 50vw;
@@ -176,6 +176,10 @@ div.comment {
 a#delete-note {
   padding-left: 2em;
   color: #bf7c7f
+}
+
+.comments {
+  padding-top: 1em;
 }
 
 /* 

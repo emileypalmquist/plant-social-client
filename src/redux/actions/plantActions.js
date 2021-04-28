@@ -1,4 +1,4 @@
-import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE } from "../actionTypes";
+import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT } from "../actionTypes";
 import {api} from "../../services/api"
 
 export const setPlants = () => {
@@ -40,6 +40,20 @@ export const  removeCareNote = (id, userPlantId) => {
 }
 
 
-export const getAllPlants = () => {
-  console.log("get all plants");
-};
+export const addCommentToUserPlant = (comment) => {
+  return {
+    type: ADD_COMMENT,
+    payload: comment
+  }
+}
+
+export const removeComment = (id, userPlantId) => {
+  return {
+    type: REMOVE_COMMENT,
+    payload: {id, userPlantId}
+  }
+}
+
+// export const getAllPlants = () => {
+//   console.log("get all plants");
+// };

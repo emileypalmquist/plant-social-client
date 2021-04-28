@@ -112,6 +112,24 @@ const deleteCareNote = (id) => {
   .then(resp => resp.json())
 }
 
+const createComment = (comment) => {
+  return fetch(API + '/comments', {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ comment }),
+  })
+    .then((resp) => resp.json())
+}
+
+
+const deleteComment = (id) => {
+  return fetch(API + `/comments/${id}`, {
+    method: "DELETE",
+    headers: authHeaders()
+  })
+  .then(resp => resp.json())
+}
+
 export const api = {
     auth: {
         login, reAuth
@@ -124,7 +142,9 @@ export const api = {
         getAllUserPlants,
         deleteUserPlant,
         createUserPlant,
-        deleteCareNote
+        deleteCareNote,
+        createComment,
+        deleteComment
     }
     
 }

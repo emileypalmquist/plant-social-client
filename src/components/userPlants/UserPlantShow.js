@@ -6,6 +6,7 @@ import { addErrors, removeErrors } from "../../redux/actions/statusActions";
 import {setUserPlantShow} from "../../redux/actions/plantActions"
 import {api} from "../../services/api"
 import CareNotes from "./CareNotes"
+import Comments from "./Comments"
 
 const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location, match, setUserPlantShow}) => {
     
@@ -60,7 +61,10 @@ const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location
                     22 Likes
                 </Card.Content>
             </Card>
-            <CareNotes careNotes={showPlant?.care_notes} userPlantId={showPlant?.id} plantUserId={showPlant?.user_id}/> 
+            <div>
+                <CareNotes careNotes={showPlant?.care_notes} userPlantId={showPlant?.id} plantUserId={showPlant?.user_id}/> 
+                <Comments comments={showPlant?.comments} userPlantId={showPlant?.id} /> 
+            </div>
             </>
                 :
                 <h1>No Plant Found</h1>
