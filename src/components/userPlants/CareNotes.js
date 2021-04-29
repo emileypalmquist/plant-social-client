@@ -15,7 +15,7 @@ const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUs
             user_plant_id: userPlantId
         }
         setContent('')
-        api.userPlants.createCareNote(note)
+        api.careNotes.createCareNote(note)
             .then(data => addCareNoteToUserPlant(data))
     }
 
@@ -28,7 +28,7 @@ const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUs
     }
 
     const handleDelete = ({id, user_plant_id}) => {
-        api.userPlants.deleteCareNote(id)
+        api.careNotes.deleteCareNote(id)
             .then((data) => {
                 setMessage(data.message)
                 removeCareNote(id, user_plant_id)

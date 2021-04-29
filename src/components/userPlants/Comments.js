@@ -16,7 +16,7 @@ const CareNotes = ({userPlantId, comments, userId, addCommentToUserPlant, remove
             user_id: userId 
         }
         setContent('')
-        api.userPlants.createComment(comment)
+        api.comments.createComment(comment)
             .then(data => addCommentToUserPlant(data))
     }
 
@@ -29,7 +29,7 @@ const CareNotes = ({userPlantId, comments, userId, addCommentToUserPlant, remove
     }
 
     const handleDelete = ({id, user_plant_id}) => {
-        api.userPlants.deleteComment(id)
+        api.comments.deleteComment(id)
             .then((data) => {
                 setMessage(data.message)
                 removeComment(id, user_plant_id)

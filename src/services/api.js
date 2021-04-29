@@ -130,6 +130,23 @@ const deleteComment = (id) => {
   .then(resp => resp.json())
 }
 
+const createLike = (like) => {
+  return fetch(API + '/likes', {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ like }),
+  })
+    .then((resp) => resp.json())
+}
+
+const deleteLike = (id) => {
+  return fetch(API + `/likes/${id}`, {
+    method: "DELETE",
+    headers: authHeaders()
+  })
+  .then(resp => resp.json())
+}
+
 export const api = {
     auth: {
         login, reAuth
@@ -138,13 +155,21 @@ export const api = {
     userPlants: {
         getUserPlant,
         getUserGreenhouse,
-        createCareNote,
         getAllUserPlants,
         deleteUserPlant,
         createUserPlant,
-        deleteCareNote,
-        createComment,
-        deleteComment
+    },
+    likes: {
+      createLike,
+      deleteLike
+    },
+    comments: {
+      createComment,
+      deleteComment,
+    },
+    careNotes: {
+      createCareNote,
+      deleteCareNote,
     }
     
 }

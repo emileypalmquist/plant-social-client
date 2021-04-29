@@ -2,37 +2,42 @@ import {useEffect, useState} from  "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom"
 import {Card, Icon, Image, Button} from "semantic-ui-react"
-import { addErrors, removeErrors } from "../../redux/actions/statusActions";
-import {setUserPlantShow} from "../../redux/actions/plantActions"
+import {setUserPlantShow, addUserPlantLike, removeUserPlantLike} from "../../redux/actions/plantActions"
 import {api} from "../../services/api"
 import CareNotes from "./CareNotes"
 import Comments from "./Comments"
 
-const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location, match, setUserPlantShow}) => {
-    
+const UserPlantShow = ({userId, userPlants, showPlant, match, setUserPlantShow, addUserPlantLike, removeUserPlantLike}) => {
 
     const handleResponse = (resp) => {
-        // if (resp.error) {
-        //     addErrors([resp.error])
-        // } else {
-            if (!resp.error) {
-                setUserPlantShow(resp)
-            }
-        //     removeErrors()
-        // }
+        if (!resp.error) {
+            setUserPlantShow(resp)
+        }
     }
 
     useEffect(() => {
-        const found = userPlants.filter(p => p.id == match.params.id)
+        const found = userPlants.filter(p => p.id === parseInt(match.params.id))
      
         if (found.length) {
             setUserPlantShow(found[0])
-            // removeErrors()
+          
         } else {
           api.userPlants.getUserPlant(match.params.id).then(resp => handleResponse(resp))
         }
     }, [userPlants])
 
+    const handleLike = () => {
+        const like = {user_id: userId, likeable_id: showPlant?.id, likeable_type: "UserPlant"}
+        api.likes.createLike(like)
+        .then(data => addUserPlantLike(data))
+    }
+
+    const handleUnLike = (like) => {
+        api.likes.deleteLike(like.id)
+            .then(data => data.message && removeUserPlantLike(like))
+    }
+
+    const like = showPlant?.likes?.find(like => like.user_id === userId) 
     return (
         <div className="plant-show-container">
             { Object.keys(showPlant).length ? 
@@ -55,10 +60,13 @@ const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location
                 </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
-                <Link to={`/greenhouse/${showPlant?.user_id}`}><Button>Check out my greenhouse</Button></Link><br/>
-                    <Icon name='thumbs up outline' />
-                    <Icon name='thumbs up' />
-                    22 Likes
+                    <Link to={`/greenhouse/${showPlant?.user_id}`}><Button>Check out my greenhouse</Button></Link><br/>
+                    
+                    {showPlant?.likes.length} Likes
+                    {like  ? 
+                    <Icon name='thumbs up' id="like-icon" onClick={() => handleUnLike(like)} /> :
+                    <Icon name='thumbs up outline' id="like-icon" onClick={handleLike} />}
+                   
                 </Card.Content>
             </Card>
             <div>
@@ -76,8 +84,9 @@ const UserPlantShow = ({removeErrors, addErrors, userPlants, showPlant, location
 const mapStateToProps = (state) => {
     return {
         showPlant: state.plantReducer.userPlantShow,
-        userPlants: state.plantReducer.userPlants
+        userPlants: state.plantReducer.userPlants,
+        userId: state.userReducer.id
     }
 }
 
-export default connect(mapStateToProps, {addErrors, removeErrors, setUserPlantShow})(UserPlantShow);
+export default connect(mapStateToProps, {setUserPlantShow, addUserPlantLike, removeUserPlantLike})(UserPlantShow);

@@ -1,5 +1,5 @@
 // import action type variables from actiontypes.js
-import { ADD_PLANTS, ADD_USER_PLANTS, SET_USER_PLANT_SHOW, REMOVE_USER_PLANT, ADD_USER_PLANT, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT } from '../actionTypes';
+import { ADD_PLANTS, ADD_USER_PLANTS, SET_USER_PLANT_SHOW, REMOVE_USER_PLANT, ADD_USER_PLANT, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE } from '../actionTypes';
 
 const initialState = {
     plants: [],
@@ -62,6 +62,20 @@ const plantReducer = (state = initialState, action) => {
         }
         case REMOVE_COMMENT: {
             const updatedPlants = state.userPlants.map(p => p.id === action.payload.userPlantId ? {...p, comments: p.comments.filter(cm => cm.id !== action.payload.id)} : p)
+            return {
+                ...state,
+                userPlants: updatedPlants
+            }
+        }
+        case ADD_USER_PLANT_LIKE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.likeable_id ? {...p, likes: [action.payload, ...p.likes]} : p)
+            return {
+              ...state,
+              userPlants: updatedPlants
+            }
+        }
+        case REMOVE_USER_PLANT_LIKE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.likeable_id ? {...p, likes: p.likes.filter(l => l.id !== action.payload.id)} : p)
             return {
                 ...state,
                 userPlants: updatedPlants

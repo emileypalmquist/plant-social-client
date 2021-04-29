@@ -30,7 +30,7 @@ class UserPlants extends Component {
       user,
     } = this.props;
 
-    if (id != user.id) {
+    if (parseInt(id) !== user.id) {
       this.getUserShow(id);
     } else {
       this.props.resetGreenhouse();
@@ -111,7 +111,7 @@ class UserPlants extends Component {
     const { user, username, zone, experienceLevel, favoritePlantSpecies, userPlants, match: { params }} = this.props
     const {error} = this.state
    
-    if (user.id == params.id) {
+    if (user.id === parseInt(params.id)) {
       return this.displayLoggedInUser(user)
     }
     return (
