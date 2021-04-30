@@ -2,9 +2,9 @@ import React, {useState} from "react"
 import {Comment, Header, Input, Message} from "semantic-ui-react"
 import {api} from "../../services/api"
 import {connect} from "react-redux"
-import {addCareNoteToUserPlant, removeCareNote} from "../../redux/actions/plantActions"
+import {addCareNoteToUserPlant, removeCareNote, addCareNoteLike, removeCareNoteLike} from "../../redux/actions/plantActions"
 
-const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUserPlant, removeCareNote}) => {
+const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUserPlant, removeCareNote, addCareNoteLike, removeCareNoteLike}) => {
     const [content, setContent] = useState('')
     const [message, setMessage] = useState(null)
 
@@ -35,6 +35,17 @@ const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUs
             })
     }
 
+    const handleLike = (id) => {
+        const like = {user_id: userId, likeable_id: id, likeable_type: "CareNote"}
+        api.likes.createLike(like)
+        .then(data => addCareNoteLike(data, userPlantId))
+    }
+
+    const handleUnLike = (like) => {
+        api.likes.deleteLike(like.id)
+            .then(data => data.message && removeCareNoteLike(like, userPlantId))
+    }
+
     const displayCareNotes = () => {
         return (
             <>
@@ -48,7 +59,10 @@ const CareNotes = ({userPlantId, careNotes, plantUserId, userId, addCareNoteToUs
                     </Comment.Metadata>
                     <Comment.Text>{cn.content}</Comment.Text>
                     <Comment.Actions>
-                    <Comment.Action onClick={console.log}>Like</Comment.Action>
+                        { cn.likes.filter(l => l.user_id === userId).length ?
+                            <Comment.Action onClick={() => handleUnLike(cn.likes.find(l => l.user_id === userId))}>Unlike</Comment.Action>: 
+                            <Comment.Action onClick={() => handleLike(cn.id)}>Like</Comment.Action> 
+                        }
                     {userId === plantUserId && <Comment.Action id="delete-note" onClick={() => handleDelete(cn)}>Delete</Comment.Action>}
                     </Comment.Actions>
                 </Comment.Content>
@@ -86,4 +100,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {addCareNoteToUserPlant, removeCareNote})(CareNotes);
+export default connect(mapStateToProps, {addCareNoteToUserPlant, removeCareNote, addCareNoteLike, removeCareNoteLike})(CareNotes);

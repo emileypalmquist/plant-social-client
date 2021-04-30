@@ -1,4 +1,4 @@
-import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE } from "../actionTypes";
+import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE, ADD_CARE_NOTE_LIKE, REMOVE_CARE_NOTE_LIKE, ADD_COMMENT_LIKE, REMOVE_COMMENT_LIKE } from "../actionTypes";
 import {api} from "../../services/api"
 
 export const setPlants = () => {
@@ -65,6 +65,34 @@ export const removeUserPlantLike = (like) => {
   return {
     type: REMOVE_USER_PLANT_LIKE,
     payload: like
+  }
+}
+
+export const addCareNoteLike = (like, userPlantId) => {
+  return {
+    type: ADD_CARE_NOTE_LIKE,
+    payload: {like, userPlantId}
+  }
+}
+
+export const removeCareNoteLike = (like, userPlantId) => {
+  return {
+    type: REMOVE_CARE_NOTE_LIKE,
+    payload: {like, userPlantId}
+  }
+}
+
+export const addCommentLike = (like, userPlantId) => {
+  return {
+    type: ADD_COMMENT_LIKE,
+    payload: {like, userPlantId}
+  }
+}
+
+export const removeCommentLike = (like, userPlantId) => { 
+  return {
+    type: REMOVE_COMMENT_LIKE,
+    payload: {like, userPlantId}
   }
 }
 

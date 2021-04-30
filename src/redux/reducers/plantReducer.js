@@ -1,10 +1,12 @@
 // import action type variables from actiontypes.js
-import { ADD_PLANTS, ADD_USER_PLANTS, SET_USER_PLANT_SHOW, REMOVE_USER_PLANT, ADD_USER_PLANT, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE } from '../actionTypes';
+import { ADD_PLANTS, ADD_USER_PLANTS, SET_USER_PLANT_SHOW, REMOVE_USER_PLANT, ADD_USER_PLANT, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE, ADD_CARE_NOTE_LIKE, REMOVE_CARE_NOTE_LIKE, ADD_COMMENT_LIKE, REMOVE_COMMENT_LIKE } from '../actionTypes';
 
 const initialState = {
     plants: [],
     userPlants: [],
-    userPlantShow: {}
+    userPlantShow: {},
+    commentsShow: [],
+    careNotesShow: []
 };
 
 const plantReducer = (state = initialState, action) => {
@@ -76,6 +78,34 @@ const plantReducer = (state = initialState, action) => {
         }
         case REMOVE_USER_PLANT_LIKE: {
             const updatedPlants = state.userPlants.map(p => p.id === action.payload.likeable_id ? {...p, likes: p.likes.filter(l => l.id !== action.payload.id)} : p)
+            return {
+                ...state,
+                userPlants: updatedPlants
+            }
+        }
+        case ADD_CARE_NOTE_LIKE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.userPlantId ? {...p, care_notes: p.care_notes.map(cn => cn.id === action.payload.like.likeable_id ? {...cn, likes: [...cn.likes, action.payload.like]} : cn) } : p)
+            return {
+                ...state,
+                userPlants: updatedPlants
+            }  
+        }
+        case REMOVE_CARE_NOTE_LIKE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.userPlantId ? {...p, care_notes: p.care_notes.map(cn => cn.id === action.payload.like.likeable_id ? {...cn, likes: cn.likes.filter(l => l.id !== action.payload.like.id)} : cn) } : p)
+            return {
+                ...state,
+                userPlants: updatedPlants
+            }
+        }
+        case ADD_COMMENT_LIKE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.userPlantId ? {...p, comments: p.comments.map(cm => cm.id === action.payload.like.likeable_id ? {...cm, likes: [...cm.likes, action.payload.like]} : cm) } : p)
+            return {
+                ...state,
+                userPlants: updatedPlants
+            }
+        }
+        case REMOVE_COMMENT_LIKE: {
+            const updatedPlants = state.userPlants.map(p => p.id === action.payload.userPlantId ? {...p, comments: p.comments.map(cm => cm.id === action.payload.like.likeable_id ? {...cm, likes: cm.likes.filter(l => l.id !== action.payload.like.id)} : cm) } : p)
             return {
                 ...state,
                 userPlants: updatedPlants

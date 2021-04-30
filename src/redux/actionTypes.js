@@ -8,6 +8,10 @@ export const ADD_COMMENT = "ADD_COMMENT"
 export const REMOVE_COMMENT = "REMOVE_COMMENT"
 export const ADD_USER_PLANT_LIKE = "ADD_USER_PLANT_LIKE"
 export const REMOVE_USER_PLANT_LIKE = "REMOVE_USER_PLANT_LIKE"
+export const ADD_CARE_NOTE_LIKE = "ADD_CARE_NOTE_LIKE"
+export const REMOVE_CARE_NOTE_LIKE = "REMOVE_CARE_NOTE_LIKE"
+export const ADD_COMMENT_LIKE = "ADD_COMMENT_LIKE"
+export const REMOVE_COMMENT_LIKE = "REMOVE_COMMENT_LIKE"
 
 //*****************************//
 // User reducer action types
