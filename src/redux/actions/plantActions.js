@@ -1,7 +1,7 @@
-import { ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE, ADD_CARE_NOTE_LIKE, REMOVE_CARE_NOTE_LIKE, ADD_COMMENT_LIKE, REMOVE_COMMENT_LIKE } from "../actionTypes";
+import { ADD_PLANTS, ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE, ADD_CARE_NOTE_LIKE, REMOVE_CARE_NOTE_LIKE, ADD_COMMENT_LIKE, REMOVE_COMMENT_LIKE } from "../actionTypes";
 import {api} from "../../services/api"
 
-export const setPlants = () => {
+export const setUserPlants = () => {
   return (dispatch) => {
     api.userPlants.getAllUserPlants()
       .then((data) => {
@@ -96,6 +96,9 @@ export const removeCommentLike = (like, userPlantId) => {
   }
 }
 
-// export const getAllPlants = () => {
-//   console.log("get all plants");
-// };
+export const setAllPlants = (plants) => {
+  return {
+    type: ADD_PLANTS,
+    payload: plants
+  }
+};

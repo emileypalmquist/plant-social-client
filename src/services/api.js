@@ -147,11 +147,21 @@ const deleteLike = (id) => {
   .then(resp => resp.json())
 }
 
+const getPlants = () => {
+  return fetch(API + '/plants', {
+    method: 'GET',
+    headers: authHeaders()
+  })
+    .then(resp => resp.json())
+}
+
 export const api = {
     auth: {
         login, reAuth
     },
-    plants: {},
+    plants: {
+      getPlants
+    },
     userPlants: {
         getUserPlant,
         getUserGreenhouse,

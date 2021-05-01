@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
+import {api} from '../services/api'
+import {setAllPlants} from "../redux/actions/plantActions"
 
 
-
-const Explore = ({setPlants, userPlants}) => {
+const Explore = ({plants, setAllPlants, history}) => {
 
   useEffect(() => {
-    console.log('explore')
+    api.plants.getPlants().then(setAllPlants)
   },[])
 
 
@@ -14,7 +15,16 @@ const Explore = ({setPlants, userPlants}) => {
     <>
         <h1 id="title">Explore Plant Species</h1>
         <div className='plant-cards-container'>
-          
+          {plants.map(p => (
+             <div className="plant-card" onClick={() => history.push(`/plant/${p.id}`)}>
+               <img src={p.image_url} alt="plant" className="plant-card-image" />
+            
+             <section className="plant-card-content">
+               <h3 className="user-plant-name">{p.name}</h3>
+               <h3 className="plant-name">{p.scientific_name}</h3>
+             </section>
+           </div>
+          ))}
         </div>
     </>
   )
@@ -22,8 +32,8 @@ const Explore = ({setPlants, userPlants}) => {
 
 const mapStateToProps = (state) => {
   return {
-    userPlants: state.plantReducer.userPlants
+    plants: state.plantReducer.plants
   }
 }
 
-export default connect(mapStateToProps)(Explore);
+export default connect(mapStateToProps, {setAllPlants})(Explore);

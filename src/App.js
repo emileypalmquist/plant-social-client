@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import {Message} from "semantic-ui-react"
 import { reAuth } from "./redux/actions/userActions";
-import { setPlants } from "./redux/actions/plantActions";
+import { setUserPlants } from "./redux/actions/plantActions";
+
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import About from "./components/About";
@@ -19,6 +20,7 @@ import UserPlants from "./components/userPlants/UserPlants";
 import Explore from "./components/Explore";
 import UserPlantForm from "./components/userPlants/UserPlantForm";
 import UserPlantShow from "./components/userPlants/UserPlantShow";
+import PlantShow from "./components/plants/PlantShow";
 import NotFound from "./components/NotFound";
 import "./App.css";
 
@@ -32,15 +34,15 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {user, userPlants, setPlants} = this.props
+    const {user, userPlants, setUserPlants} = this.props
    
-    if (prevProps.user.id !== user.id && userPlants.length == 0) {
-      setPlants();
+    if (prevProps.user.id !== user.id && userPlants.length === 0) {
+      setUserPlants();
     }
   }
 
   render() {
-    const { user, errors } = this.props;
+    const { errors } = this.props;
 
     return (
       <div className="app-container">
@@ -72,7 +74,8 @@ class App extends Component {
                   component={CommunityGarden}
                 />
                 <Route path="/greenhouse/:id" component={UserPlants} />
-                <Route path="/plant/:id" component={UserPlantShow} />
+                <Route path="/user_plant/:id" component={UserPlantShow} />
+                <Route path="/plant/:id" component={PlantShow} />
                 <Route exact path="/new_plant" component={UserPlantForm} />
                 <Route exact path="/explore" component={Explore} />
                 <Redirect from="/login" to="/community-garden" />
@@ -96,4 +99,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { reAuth, setPlants })(App);
+export default connect(mapStateToProps, { reAuth, setUserPlants })(App);
