@@ -1,7 +1,8 @@
 import React, {useState} from "react"
+import {connect} from "react-redux"
+import {Link} from "react-router-dom"
 import {Comment, Header, Input, Message} from "semantic-ui-react"
 import {api} from "../../services/api"
-import {connect} from "react-redux"
 import {addCommentToUserPlant, removeComment, addCommentLike, removeCommentLike} from "../../redux/actions/plantActions"
 
 const Comments = ({userPlantId, comments, userId, addCommentToUserPlant, removeComment, addCommentLike, removeCommentLike}) => {
@@ -57,9 +58,9 @@ const Comments = ({userPlantId, comments, userId, addCommentToUserPlant, removeC
                 {comments.map(cm => (
                     <Comment  key={cm.id}>
                     {/* need users profile image and name*/}
-                    <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+                    <Comment.Avatar src={cm.user.profile_photo} />
                     <Comment.Content>
-                    <Comment.Author as='a'>Matt</Comment.Author>
+                    <Comment.Author as={Link} to={`/greenhouse/${cm.user.id}`}>{cm.user.username}</Comment.Author>
                     <Comment.Metadata>
                         <div>{formatDate(cm.created_at)}</div>
                     </Comment.Metadata>
@@ -69,7 +70,7 @@ const Comments = ({userPlantId, comments, userId, addCommentToUserPlant, removeC
                             <Comment.Action onClick={() => handleUnLike(cm.likes.find(l => l.user_id === userId))}>Unlike</Comment.Action>: 
                             <Comment.Action onClick={() => handleLike(cm.id)}>Like</Comment.Action> 
                         }
-                        {userId === cm.user_id && <Comment.Action id="delete-note" onClick={() => handleDelete(cm)}>Delete</Comment.Action>}
+                        {userId === cm.user.id && <Comment.Action id="delete-note" onClick={() => handleDelete(cm)}>Delete</Comment.Action>}
                     </Comment.Actions>
                     </Comment.Content>
                     </Comment>

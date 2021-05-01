@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Button} from "semantic-ui-react"
+import {Button, Image} from "semantic-ui-react"
 import PlantCard from "./PlantCard";
 import {setGreenhouse, resetGreenhouse} from "../../redux/actions/greenhouseActions"
 import {api} from "../../services/api"
@@ -91,10 +91,11 @@ class UserPlants extends Component {
     console.log('will add friend request when backend built')
   }
 
-  displayLoggedInUser = ({username, experience_level, zone, user_plants, favorite_plant_species}) => {
+  displayLoggedInUser = ({profile_photo, username, experience_level, zone, user_plants, favorite_plant_species}) => {
    
     return (
       <div>
+        <Image src={profile_photo} size='small' circular />
         <h1 id="title"> {username}'s Garden </h1>
           <div className="garden-details">
             <h2>experience level: {experience_level}</h2>
@@ -108,7 +109,7 @@ class UserPlants extends Component {
   }
 
   render() {
-    const { user, username, zone, experienceLevel, favoritePlantSpecies, userPlants, match: { params }} = this.props
+    const { user, username, zone, profilePhoto, experienceLevel, favoritePlantSpecies, userPlants, match: { params }} = this.props
     const {error} = this.state
    
     if (user.id === parseInt(params.id)) {
@@ -120,6 +121,7 @@ class UserPlants extends Component {
           <p className="error">{error}</p>
         ) : (
           <>
+            <Image src={profilePhoto} size='small' circular />
             <h1 id="title"> {username}'s Garden </h1>
             <h2>experience level: {experienceLevel}</h2>
             <h2>grow zone: {zone}</h2>
@@ -134,7 +136,7 @@ class UserPlants extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {username, zone, experience_level, id, favorite_plant_species, user_plants} = state.greenhouseReducer.greenhouse
+  const {username, zone, experience_level, id, favorite_plant_species, user_plants, profile_photo} = state.greenhouseReducer.greenhouse
   
   return {
     user: state.userReducer,
@@ -143,7 +145,8 @@ const mapStateToProps = (state) => {
     experienceLevel: experience_level,
     id,
     favoritePlantSpecies: favorite_plant_species,
-    userPlants: user_plants
+    userPlants: user_plants,
+    profilePhoto: profile_photo
   };
 };
 

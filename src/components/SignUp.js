@@ -19,7 +19,7 @@ const SignUp = ({login, history}) => {
       password_confirmation: passwordConfirmation,
       email,
       zone: growZone,
-      experience,
+      experience_level: experience,
     }
     
     login(e, user, '/users', history)

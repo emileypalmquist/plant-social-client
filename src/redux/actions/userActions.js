@@ -17,7 +17,7 @@ export const login = (e, user, path, history) => {
       .then((data) => {
         if (data.user) {
           localStorage.setItem("token", data.jwt);
-
+          console.log(data.user)
           dispatch({ type: LOGIN, payload: data.user });
           dispatch({ type: REMOVE_ERROR });
           history.push("community-garden");
