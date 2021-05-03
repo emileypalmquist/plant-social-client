@@ -32,10 +32,10 @@ const Nav = ({ handleLogout, username, userId }) => {
             {" "}
             Community Garden{" "}
           </NavLink>
-          <NavLink to="/explore" className="nav-item">
+          {/* <NavLink to="/explore" className="nav-item">
             {" "}
             Explore{" "}
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/login" className="nav-item">
             {" "}
             <div onClick={handleLogout}>Log Out </div>

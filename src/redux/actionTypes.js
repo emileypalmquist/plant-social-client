@@ -24,6 +24,7 @@ export const REMOVE_USER_PLANT = "REMOVE_USER_PLANT";
 // status reducer action types
 export const ADD_ERROR = "ADD_ERROR";
 export const REMOVE_ERROR = "REMOVE_ERROR";
+export const  SET_LOADING = " SET_LOADING";
 
 //*****************************//
 // greenhouse reducer action types

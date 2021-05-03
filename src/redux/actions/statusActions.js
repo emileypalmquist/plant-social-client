@@ -1,4 +1,4 @@
-import { ADD_ERROR, REMOVE_ERROR } from '../actionTypes'
+import { ADD_ERROR, REMOVE_ERROR, SET_LOADING} from '../actionTypes'
 
 
 export const addErrors = (errors) => {
@@ -10,5 +10,12 @@ export const addErrors = (errors) => {
 export const removeErrors = () => {
     return dispatch => {
         dispatch({ type: REMOVE_ERROR })
+    }
+}
+
+export const setLoading = (payload) => {
+    return {
+        type: SET_LOADING,
+        payload 
     }
 }

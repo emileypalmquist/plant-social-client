@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { connect } from "react-redux";
 import {Button, Image} from "semantic-ui-react"
 import PlantCard from "./PlantCard";
 import {setGreenhouse, resetGreenhouse} from "../../redux/actions/greenhouseActions"
 import {api} from "../../services/api"
+
 
 class UserPlants extends Component {
   // need to refactor into redux store
@@ -59,6 +60,7 @@ class UserPlants extends Component {
     ) : (
       <div className="plant-cards-container">
         {userPlants.map((plant) => (
+         
           <PlantCard
             key={plant.id}
             history={history}
@@ -67,6 +69,7 @@ class UserPlants extends Component {
             user={user}
             location={location}
           />
+        
         ))}
       </div>
     );
@@ -94,17 +97,19 @@ class UserPlants extends Component {
   displayLoggedInUser = ({profile_photo, username, experience_level, zone, user_plants, favorite_plant_species}) => {
    
     return (
-      <div>
-        <Image src={profile_photo} size='small' circular />
-        <h1 id="title"> {username}'s Garden </h1>
+      <>
+        <section id="garden-header">
+          <Image src={profile_photo}  size='small' circular floated='left'/>
+          <h1 id="title"> {username}'s Garden </h1>
           <div className="garden-details">
             <h2>experience level: {experience_level}</h2>
             <h2>grow zone: {zone}</h2>
             <Button onClick={this.handleNewPlantClick}>Add New Plant Friend</Button>
           </div>
-          {this.displayUserPlants(username, user_plants)}
-          {this.displayFavoritePlantSpecies(username, favorite_plant_species)}
-      </div>
+        </section>
+        {this.displayUserPlants(username, user_plants)}
+        {this.displayFavoritePlantSpecies(username, favorite_plant_species)}
+      </>
     )
   }
 
@@ -115,22 +120,29 @@ class UserPlants extends Component {
     if (user.id === parseInt(params.id)) {
       return this.displayLoggedInUser(user)
     }
+    
     return (
-      <div>
+      <>
         {error ? (
           <p className="error">{error}</p>
         ) : (
           <>
-            <Image src={profilePhoto} size='small' circular />
-            <h1 id="title"> {username}'s Garden </h1>
-            <h2>experience level: {experienceLevel}</h2>
-            <h2>grow zone: {zone}</h2>
-            <Button onClick={this.handleAddFriendClick}>Add Friend</Button>
+            
+            <section id="garden-header">
+              <Image src={profilePhoto} size='small' circular floated='left' />
+              <div className="garden-details">
+                <h1 id="title"> {username}'s Garden </h1>
+                <h2>experience level: {experienceLevel}</h2>
+                <h2>grow zone: {zone}</h2>
+                <Button onClick={this.handleAddFriendClick}>Add Friend</Button>
+              </div>
+            </section>
             {this.displayUserPlants(username, userPlants)}
             {this.displayFavoritePlantSpecies(username, favoritePlantSpecies)}
+       
           </>
         )}
-      </div>
+      </>
     );
   }
 }

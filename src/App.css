@@ -50,14 +50,17 @@ a:hover {
 }
 
 #title {
-  padding-left: 2em;
   font-family: 'Goudy Bookletter 1911', serif;
   font-size: xxx-large;
 }
 
 .garden-details {
   color: rgba(0,0,0,.68);
-  padding: 0 0 2em 8em;
+  padding: 0 0 2em 2em;
+}
+
+#garden-header {
+  padding: 2em 2em;
 }
 
 .form-container {
@@ -185,19 +188,80 @@ a#delete-note {
 i#like-icon {
   margin: 0em 2em;
 }
-/* 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
 
-/* 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.loading {
+  text-align: center;
+  margin-top: 5em;
+}
+
+svg {
+  height: 600px;
+  width: 500px;
+}
+
+#stems {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: grow 4s linear forwards infinite;
+}
+
+@keyframes grow {
   to {
-    transform: rotate(360deg);
+    stroke-dashoffset: 0;
   }
-} */
+}
+
+
+@-webkit-keyframes fadeIn { 
+  0% { opacity:1; } 
+  25% { opacity:1; } 
+  50% { opacity:0; }
+  100% {opacity: 0;} 
+}
+@-moz-keyframes fadeIn {
+  0% { opacity:1; } 
+  25% { opacity:1; } 
+  50% { opacity:0; } 
+  100% {opacity: 0;}
+}
+
+@keyframes fadeIn { 
+  0% { opacity:1; } 
+  25% { opacity:1; } 
+  50% { opacity:1; } 
+  100% {opacity: 0;}
+}
+
+.leaves {
+	opacity:0;  /* make things invisible upon start */
+	-webkit-animation:fadeIn linear infinite;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+	-moz-animation:fadeIn linear infinite;
+	animation:fadeIn linear infinite;
+
+	-webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+
+	-webkit-animation-duration:2s;
+	-moz-animation-duration:2s;
+	animation-duration:4s;
+} 
+
+.leaves.top {
+-webkit-animation-delay: 0.5s;
+-moz-animation-delay: 0.5s;
+animation-delay: 0.5s;
+}
+
+.leaves.middle {
+-webkit-animation-delay: 1s;
+-moz-animation-delay: 1s;
+animation-delay: 1s;
+}
+ 
+.leaves.end {
+-webkit-animation-delay: 1.5s;
+-moz-animation-delay: 1.5s;
+animation-delay: 1.5s;
+}
+

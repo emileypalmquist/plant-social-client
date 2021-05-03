@@ -9,6 +9,7 @@ import {
 import {Message} from "semantic-ui-react"
 import { reAuth } from "./redux/actions/userActions";
 import { setUserPlants } from "./redux/actions/plantActions";
+import {setLoading} from "./redux/actions/statusActions"
 
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -17,12 +18,14 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import CommunityGarden from "./components/CommunityGarden";
 import UserPlants from "./components/userPlants/UserPlants";
-import Explore from "./components/Explore";
 import UserPlantForm from "./components/userPlants/UserPlantForm";
 import UserPlantShow from "./components/userPlants/UserPlantShow";
-import PlantShow from "./components/plants/PlantShow";
 import NotFound from "./components/NotFound";
+import Loading from "./Loading"
 import "./App.css";
+
+// import Explore from "./components/Explore";
+// import PlantShow from "./components/plants/PlantShow";
 
 const token = localStorage.getItem("token");
 
@@ -30,6 +33,7 @@ class App extends Component {
   componentDidMount() {
     if (token) {
       this.props.reAuth();
+      // setTimeout(() => this.props.setLoading(false), 3000)
     }
   }
 
@@ -41,9 +45,18 @@ class App extends Component {
     }
   }
 
-  render() {
-    const { errors } = this.props;
+ 
 
+  render() {
+    const { errors, loading } = this.props;
+    // if (loading) {
+    //   return (
+    //     <div className="app-container">
+    //      <Loading /> 
+    //     </div>
+    //   )
+    // }
+    
     return (
       <div className="app-container">
         <Router>
@@ -75,9 +88,9 @@ class App extends Component {
                 />
                 <Route path="/greenhouse/:id" component={UserPlants} />
                 <Route path="/user_plant/:id" component={UserPlantShow} />
-                <Route path="/plant/:id" component={PlantShow} />
                 <Route exact path="/new_plant" component={UserPlantForm} />
-                <Route exact path="/explore" component={Explore} />
+                {/* <Route path="/plant/:id" component={PlantShow} /> */}
+                {/* <Route exact path="/explore" component={Explore} /> */}
                 <Redirect from="/login" to="/community-garden" />
                 <Redirect from="/signup" to="/community-garden" />
                 <Route component={NotFound} />
@@ -95,8 +108,9 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer,
     errors: state.statusReducer.errors,
-    userPlants: state.plantReducer.userPlants
+    userPlants: state.plantReducer.userPlants,
+    loading: state.statusReducer.loading
   };
 };
 
-export default connect(mapStateToProps, { reAuth, setUserPlants })(App);
+export default connect(mapStateToProps, { reAuth, setUserPlants, setLoading })(App);

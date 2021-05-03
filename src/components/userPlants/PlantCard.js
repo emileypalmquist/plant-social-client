@@ -1,6 +1,7 @@
 import { deleteUserPlant } from "../../redux/actions/userActions";
 import { connect } from "react-redux";
 import {Button} from "semantic-ui-react"
+
 const PlantCard = ({
   userPlant: { name, id, plant, photo, user_id },
   history,
@@ -10,6 +11,7 @@ const PlantCard = ({
 }) => {
 
   return (
+    
     <div className="plant-card" onClick={() => history.push(`/user_plant/${id}`)}>
       {photo.includes("https://") ? (
         <img src={photo} alt="plant" className="plant-card-image" />

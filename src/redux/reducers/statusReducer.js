@@ -1,4 +1,4 @@
-import { ADD_ERROR, REMOVE_ERROR } from '../actionTypes';
+import { ADD_ERROR, REMOVE_ERROR, SET_LOADING } from '../actionTypes';
 
 const initialState = {
     errors: null,
@@ -17,6 +17,12 @@ const statusReducer = (state = initialState, action) => {
             return {
                 ...state,
                 errors: null
+            }
+        }
+        case SET_LOADING: {
+            return {
+                ...state,
+                loading: action.payload
             }
         }
         default:

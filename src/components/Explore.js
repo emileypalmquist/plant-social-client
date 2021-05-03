@@ -16,7 +16,7 @@ const Explore = ({plants, setAllPlants, history}) => {
         <h1 id="title">Explore Plant Species</h1>
         <div className='plant-cards-container'>
           {plants.map(p => (
-             <div className="plant-card" onClick={() => history.push(`/plant/${p.id}`)}>
+             <div className="plant-card" key={p.id} onClick={() => history.push(`/plant/${p.id}`)}>
                <img src={p.image_url} alt="plant" className="plant-card-image" />
             
              <section className="plant-card-content">
