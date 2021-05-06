@@ -1,4 +1,4 @@
-import { ADD_PLANTS, ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE, ADD_CARE_NOTE_LIKE, REMOVE_CARE_NOTE_LIKE, ADD_COMMENT_LIKE, REMOVE_COMMENT_LIKE } from "../actionTypes";
+import { ADD_PLANTS, ADD_USER_PLANTS, ADD_ERROR, REMOVE_ERROR, SET_USER_PLANT_SHOW, ADD_CARE_NOTE, REMOVE_CARE_NOTE, ADD_COMMENT, REMOVE_COMMENT, ADD_USER_PLANT_LIKE, REMOVE_USER_PLANT_LIKE, ADD_CARE_NOTE_LIKE, REMOVE_CARE_NOTE_LIKE, ADD_COMMENT_LIKE, REMOVE_COMMENT_LIKE, SET_LOADING } from "../actionTypes";
 import {api} from "../../services/api"
 
 export const setUserPlants = () => {
@@ -9,6 +9,7 @@ export const setUserPlants = () => {
           dispatch({ type: ADD_ERROR, payload: data.messages });
         } else {
           dispatch({ type: REMOVE_ERROR });
+          dispatch({type: SET_LOADING, payload: false })
           dispatch({ type: ADD_USER_PLANTS, payload: data });
         }
       })

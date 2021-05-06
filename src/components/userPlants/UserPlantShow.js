@@ -62,7 +62,7 @@ const UserPlantShow = ({userId, userPlants, showPlant, match, setUserPlantShow, 
                 <Card.Content extra>
                     <Link to={`/greenhouse/${showPlant?.user_id}`}><Button>Check out my greenhouse</Button></Link><br/>
                     
-                    {showPlant?.likes.length} Likes
+                    {showPlant?.likes?.length} Likes
                     {like  ? 
                     <Icon name='thumbs up' id="like-icon" onClick={() => handleUnLike(like)} /> :
                     <Icon name='thumbs up outline' id="like-icon" onClick={handleLike} />}

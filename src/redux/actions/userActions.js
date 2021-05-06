@@ -56,7 +56,7 @@ export const newUserPlant = (info, history) => {
   return (dispatch) => {
   api.userPlants.createUserPlant(info)
       .then((data) => {
-        if (data.messages) {
+        if (!data.user_plant) {
           dispatch({ type: ADD_ERROR, paylod: data.messages });
         } else {
           dispatch({ type: REMOVE_ERROR });
