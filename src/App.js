@@ -11,6 +11,8 @@ import { reAuth } from "./redux/actions/userActions";
 import { setUserPlants } from "./redux/actions/plantActions";
 import {setLoading} from "./redux/actions/statusActions"
 
+import WithLoading from "./higherOrderComponents/WithLoading"
+
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import About from "./components/About";
@@ -21,11 +23,13 @@ import UserPlants from "./components/userPlants/UserPlants";
 import UserPlantForm from "./components/userPlants/UserPlantForm";
 import UserPlantShow from "./components/userPlants/UserPlantShow";
 import NotFound from "./components/NotFound";
-import Loading from "./Loading"
 import "./App.css";
 
 // import Explore from "./components/Explore";
 // import PlantShow from "./components/plants/PlantShow";
+const UserPlantsWithLoading = WithLoading(UserPlants);
+const UserPlantShowWithLoading = WithLoading(UserPlantShow);
+const CommunityGardenWithLoading = WithLoading(CommunityGarden)
 
 const token = localStorage.getItem("token");
 
@@ -33,7 +37,6 @@ class App extends Component {
   componentDidMount() {
     if (token) {
       this.props.reAuth();
-      // setTimeout(() => this.props.setLoading(false), 3000)
     }
   }
 
@@ -45,17 +48,8 @@ class App extends Component {
     }
   }
 
- 
-
   render() {
     const { errors, loading } = this.props;
-    // if (loading) {
-    //   return (
-    //     <div className="app-container">
-    //      <Loading /> 
-    //     </div>
-    //   )
-    // }
     
     return (
       <div className="app-container">
@@ -84,16 +78,16 @@ class App extends Component {
                 <Route
                   exact
                   path="/community-garden"
-                  component={CommunityGarden}
+                  render={(routerProps) => <CommunityGardenWithLoading {...routerProps} isLoading={loading}/>}
                 />
-                <Route path="/greenhouse/:id" component={UserPlants} />
-                <Route path="/user_plant/:id" component={UserPlantShow} />
+                <Route path="/greenhouse/:id" render={(routerProps) => <UserPlantsWithLoading {...routerProps} isLoading={loading}/>} />
+                <Route path="/user_plant/:id" render={(routerProps) => <UserPlantShowWithLoading {...routerProps} isLoading={loading}/>} />
                 <Route exact path="/new_plant" component={UserPlantForm} />
-                {/* <Route path="/plant/:id" component={PlantShow} /> */}
-                {/* <Route exact path="/explore" component={Explore} /> */}
                 <Redirect from="/login" to="/community-garden" />
                 <Redirect from="/signup" to="/community-garden" />
                 <Route component={NotFound} />
+                {/* <Route path="/plant/:id" component={PlantShow} /> */}
+                {/* <Route exact path="/explore" component={Explore} /> */}
               </Switch>
             )}
           </main>
