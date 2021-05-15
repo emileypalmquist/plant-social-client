@@ -13,6 +13,11 @@
   flex: 1;
 }
 
+.about {
+  text-align: center;
+  margin-top: 2rem;
+}
+
 header {
   background-color: #a3b18a;
   position: sticky;
@@ -192,6 +197,7 @@ i#like-icon {
 .loading {
   text-align: center;
   margin-top: 5em;
+  background-color: inherit;
 }
 
 svg {

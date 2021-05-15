@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import {Button, Form, Checkbox} from 'semantic-ui-react'
 import { newUserPlant } from '../../redux/actions/userActions'
+import {api} from '../../services/api'
 
 const UserPlantForm = ({ history, newUserPlant, userId }) => {
     const [name, setName] = useState('')
@@ -9,11 +10,22 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
     const [moisture, setMoisture] = useState(1)
     const [indoor, setIndoor] = useState(false)
     const [photo, setPhoto] = useState(null)
+    const [plantSpeciesQuery, setPlantSpeciesQuery] = useState('')
+    const [plants, setPlants] = useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // need to refector last arguement once get plant species implemented
-        newUserPlant({name, difficulty, moisture, indoor, photo, userId, plantId: 1}, history)
+        newUserPlant({name, difficulty, moisture, indoor, photo, userId, plant: plantSpeciesQuery}, history)
+    }
+
+    const handleSearch = (query) => {
+        console.log(query)
+        setPlantSpeciesQuery(query)
+        api.plants.searchForPlantSpecies(query).then(plantsResult => setPlants(plantsResult))
+    }
+
+    const displayResults = () => {
+        return plants.map(plant => <option key={plant.id}>{plant.name}</option>)
     }
     
     return (
@@ -24,6 +36,13 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
                 <Form.Field>
                     <label htmlFor='name'>name: </label>
                     <input  id='name' type='text' name='name' placeholder='name' value={name} onChange={(e) => setName(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                    <label htmlFor='plantSpecies'>plant species: </label>
+                    <input  id='plantSpecies' type='text' name='plantSpecies' placeholder='plant species' value={plantSpeciesQuery} onChange={(e) => handleSearch(e.target.value)} list='plant-species-list'/>
+                    <datalist id='plant-species-list'>
+                      {displayResults()}
+                    </datalist>
                 </Form.Field>
                 <Form.Field>
                     <label htmlFor='difficulty'>difficulty: </label>

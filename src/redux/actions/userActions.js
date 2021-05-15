@@ -6,6 +6,7 @@ import {
   REMOVE_ERROR,
   ADD_USER_PLANT,
   REMOVE_USER_PLANT,
+  SET_LOADING
   
 } from "../actionTypes";
 import {api} from "../../services/api"
@@ -14,12 +15,14 @@ export const login = (e, user, path, history) => {
   e.preventDefault();
 
   return (dispatch) => {
+    dispatch({type: SET_LOADING, payload: true})
     api.auth.login(path, user)
       .then((data) => {
         if (data.user) {
           localStorage.setItem("token", data.jwt);
           console.log(data.user)
           dispatch({ type: LOGIN, payload: data.user });
+          dispatch({type: SET_LOADING, payload: false})
           dispatch({ type: REMOVE_ERROR });
           history.push("community-garden");
         } else {

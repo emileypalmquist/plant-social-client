@@ -82,7 +82,7 @@ const createUserPlant = ({
     indoor,
     photo,
     userId,
-    plantId
+    plant
   }) => {
     
     const formData = new FormData();
@@ -91,7 +91,7 @@ const createUserPlant = ({
     formData.append("moisture", moisture);
     formData.append("indoor", indoor);
     formData.append("user_id", userId);
-    formData.append("plant_id", plantId);
+    formData.append("plant", plant);
     photo && formData.append("photo", photo);
   
     return fetch(API + "/user_plants", {
@@ -155,12 +155,21 @@ const getPlants = () => {
     .then(resp => resp.json())
 }
 
+const searchForPlantSpecies = (query) => {
+  return fetch(API + '/plant-search', {
+    method: 'POST', 
+    headers: authHeaders(),
+    body: JSON.stringify({query})
+  }).then(resp => resp.json())
+}
+
 export const api = {
     auth: {
         login, reAuth
     },
     plants: {
-      getPlants
+      getPlants,
+      searchForPlantSpecies
     },
     userPlants: {
         getUserPlant,

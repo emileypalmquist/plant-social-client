@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Component} from "react";
 import { connect } from "react-redux";
 import {Button, Image} from "semantic-ui-react"
 import PlantCard from "./PlantCard";
@@ -90,9 +90,9 @@ class UserPlants extends Component {
     this.props.history.push("/new_plant");
   };
 
-  handleAddFriendClick = () => {
-    console.log('will add friend request when backend built')
-  }
+  // handleAddFriendClick = () => {
+  //   console.log('will add friend request when backend built')
+  // }
 
   displayLoggedInUser = ({profile_photo, username, experience_level, zone, user_plants, favorite_plant_species}) => {
    
@@ -108,7 +108,7 @@ class UserPlants extends Component {
           </div>
         </section>
         {this.displayUserPlants(username, user_plants)}
-        {this.displayFavoritePlantSpecies(username, favorite_plant_species)}
+        {/* {this.displayFavoritePlantSpecies(username, favorite_plant_species)} */}
       </>
     )
   }
@@ -134,11 +134,11 @@ class UserPlants extends Component {
                 <h1 id="title"> {username}'s Garden </h1>
                 <h2>experience level: {experienceLevel}</h2>
                 <h2>grow zone: {zone}</h2>
-                <Button onClick={this.handleAddFriendClick}>Add Friend</Button>
+                {/* <Button onClick={this.handleAddFriendClick}>Add Friend</Button> */}
               </div>
             </section>
             {this.displayUserPlants(username, userPlants)}
-            {this.displayFavoritePlantSpecies(username, favoritePlantSpecies)}
+            {/* {this.displayFavoritePlantSpecies(username, favoritePlantSpecies)} */}
        
           </>
         )}
