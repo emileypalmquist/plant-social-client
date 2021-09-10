@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap");
 
 .app-container {
   background-color: #dad7cd;
@@ -30,19 +29,19 @@ header {
 .nav-item {
   margin: 0 15px;
   font-size: large;
-  word-spacing: -.1em;
+  word-spacing: -0.1em;
 }
 
 footer {
   background-color: #a3b18a;
   text-align: center;
-  
+
   padding: 15px 0;
   bottom: 0;
 }
 
 .active {
-  color:  white
+  color: white;
 }
 
 a {
@@ -55,12 +54,12 @@ a:hover {
 }
 
 #title {
-  font-family: 'Goudy Bookletter 1911', serif;
+  font-family: "Goudy Bookletter 1911", serif;
   font-size: xxx-large;
 }
 
 .garden-details {
-  color: rgba(0,0,0,.68);
+  color: rgba(0, 0, 0, 0.68);
   padding: 0 0 2em 2em;
 }
 
@@ -73,7 +72,7 @@ a:hover {
   background-color: white;
   padding: 5vh 5vw;
   border-radius: 25px;
-  box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .plant-cards-container {
@@ -85,38 +84,43 @@ a:hover {
 .plant-card-content {
   background-color: white;
   margin-bottom: 20px;
- border-bottom-right-radius: .5em;
- border-bottom-left-radius: .5em;
+  border-bottom-right-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
 }
 
 h3.user-plant-name {
   font-size: large;
   margin-top: -5px;
-  padding: .7em 0em 0em 1.05em;
+  padding: 0.7em 0em 0em 1.05em;
   margin-bottom: 0;
   font-weight: 550;
 }
 
-h3.plant-name{
+h3.plant-name {
   font-size: 1em;
   padding-left: 20px;
   margin: 0;
-  font-weight: 100 ;
-  color: rgba(0,0,0,.4);
-  padding: .2em 0em .8em 1.4em;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.4);
+  padding: 0.2em 0em 0.8em 1.4em;
+}
+
+.plant-card,
+.like-icon {
+  cursor: pointer;
 }
 
 #plant-card-button {
   width: 10em;
   transform: translateX(40%);
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .plant-card-image {
   max-height: 250px;
   width: 250px;
-  border-top-left-radius: .5em;
-  border-top-right-radius: .5em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
 }
 
 .plant-image {
@@ -125,24 +129,24 @@ h3.plant-name{
 }
 
 #card-button-container {
-  border-top: 1px solid rgba(0,0,0,.05)!important;
-  padding-top: .5em;
+  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+  padding-top: 0.5em;
 }
-.plant-show-container { 
+.plant-show-container {
   /* not responsive- need responsive way to center div but now content within */
   margin-top: 30px;
-  display: flex; 
+  display: flex;
   align-content: center;
   justify-content: space-around;
 }
 
 #careNotesSection {
   max-height: 270px;
-  overflow-y:auto;
+  overflow-y: auto;
   position: relative;
   width: 50vw;
   transform: rotate(180deg);
-} 
+}
 
 div.comment {
   transform: rotate(180deg);
@@ -154,16 +158,16 @@ div.comment {
 
 @media only screen and (max-width: 700px) {
   .plant-show-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
   #careNotesSection {
-    overflow-y:auto;
+    overflow-y: auto;
     position: relative;
     margin: 20px;
-  } 
+  }
   .ui.card {
     width: 350px;
     margin-bottom: 3em;
@@ -171,7 +175,7 @@ div.comment {
 }
 
 .care-notes-form {
-   position: static;
+  position: static;
 }
 
 .cancel-button {
@@ -183,7 +187,7 @@ div.comment {
 
 a#delete-note {
   padding-left: 2em;
-  color: #bf7c7f
+  color: #bf7c7f;
 }
 
 .comments {
@@ -217,57 +221,79 @@ svg {
   }
 }
 
-
-@-webkit-keyframes fadeIn { 
-  0% { opacity:1; } 
-  25% { opacity:1; } 
-  50% { opacity:0; }
-  100% {opacity: 0;} 
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @-moz-keyframes fadeIn {
-  0% { opacity:1; } 
-  25% { opacity:1; } 
-  50% { opacity:0; } 
-  100% {opacity: 0;}
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-@keyframes fadeIn { 
-  0% { opacity:1; } 
-  25% { opacity:1; } 
-  50% { opacity:1; } 
-  100% {opacity: 0;}
+@keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .leaves {
-	opacity:0;  /* make things invisible upon start */
-	-webkit-animation:fadeIn linear infinite;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
-	-moz-animation:fadeIn linear infinite;
-	animation:fadeIn linear infinite;
+  opacity: 0; /* make things invisible upon start */
+  -webkit-animation: fadeIn linear infinite; /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation: fadeIn linear infinite;
+  animation: fadeIn linear infinite;
 
-	-webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
-	-moz-animation-fill-mode:forwards;
-	animation-fill-mode:forwards;
+  -webkit-animation-fill-mode: forwards; /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 
-	-webkit-animation-duration:2s;
-	-moz-animation-duration:2s;
-	animation-duration:4s;
-} 
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  animation-duration: 4s;
+}
 
 .leaves.top {
--webkit-animation-delay: 0.5s;
--moz-animation-delay: 0.5s;
-animation-delay: 0.5s;
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  animation-delay: 0.5s;
 }
 
 .leaves.middle {
--webkit-animation-delay: 1s;
--moz-animation-delay: 1s;
-animation-delay: 1s;
-}
- 
-.leaves.end {
--webkit-animation-delay: 1.5s;
--moz-animation-delay: 1.5s;
-animation-delay: 1.5s;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
 }
 
+.leaves.end {
+  -webkit-animation-delay: 1.5s;
+  -moz-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+}

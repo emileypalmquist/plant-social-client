@@ -88,12 +88,14 @@ const UserPlantShow = ({
                 <Icon
                   name="thumbs up"
                   id="like-icon"
+                  className="like-icon"
                   onClick={() => handleUnLike(like)}
                 />
               ) : (
                 <Icon
                   name="thumbs up outline"
                   id="like-icon"
+                  className="like-icon"
                   onClick={handleLike}
                 />
               )}
