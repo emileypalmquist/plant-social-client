@@ -1,6 +1,7 @@
 import React from "react";
-const API = process.env.REACT_APP_BACKEND_BASE_URL;
+const API = process.env.REACT_APP_BACKEND_IMAGE_BASE_URL;
 const CardImage = ({ photo }) => {
+  console.log(photo);
   return (
     <>
       {photo.includes("https://") ? (
