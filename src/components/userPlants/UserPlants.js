@@ -1,10 +1,13 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Button, Image} from "semantic-ui-react"
+import { Link } from "react-router-dom";
+import { Button, Image } from "semantic-ui-react";
 import PlantCard from "./PlantCard";
-import {setGreenhouse, resetGreenhouse} from "../../redux/actions/greenhouseActions"
-import {api} from "../../services/api"
-
+import {
+  setGreenhouse,
+  resetGreenhouse,
+} from "../../redux/actions/greenhouseActions";
+import { api } from "../../services/api";
 
 class UserPlants extends Component {
   // need to refactor into redux store
@@ -17,7 +20,6 @@ class UserPlants extends Component {
   }
 
   componentDidUpdate(prevProps) {
-  
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.handleGetUser();
     }
@@ -35,12 +37,12 @@ class UserPlants extends Component {
       this.getUserShow(id);
     } else {
       this.props.resetGreenhouse();
-    } 
+    }
   };
 
   getUserShow = (id) => {
-
-    api.userPlants.getUserGreenhouse(id)
+    api.userPlants
+      .getUserGreenhouse(id)
       .then((data) => {
         if (data.error) {
           // this.setState({ error: data.error });
@@ -60,7 +62,6 @@ class UserPlants extends Component {
     ) : (
       <div className="plant-cards-container">
         {userPlants.map((plant) => (
-         
           <PlantCard
             key={plant.id}
             history={history}
@@ -69,14 +70,12 @@ class UserPlants extends Component {
             user={user}
             location={location}
           />
-        
         ))}
       </div>
     );
   };
 
   displayFavoritePlantSpecies = (username, favoritePlantSpecies) => {
-   
     return favoritePlantSpecies.length === 0 ? (
       <h1>No Favorite Plants &#9785; </h1>
     ) : (
@@ -94,42 +93,73 @@ class UserPlants extends Component {
   //   console.log('will add friend request when backend built')
   // }
 
-  displayLoggedInUser = ({profile_photo, username, experience_level, zone, user_plants, favorite_plant_species}) => {
-   
+  displayLoggedInUser = ({
+    profile_photo,
+    username,
+    experience_level,
+    zone,
+    user_plants,
+    favorite_plant_species,
+  }) => {
     return (
       <>
         <section id="garden-header">
-          <Image src={profile_photo}  size='small' circular floated='left'/>
-          <h1 id="title"> {username}'s Garden </h1>
+          <Image
+            src={profile_photo}
+            size="small"
+            className="user-image"
+            circular
+            floated="left"
+          />
           <div className="garden-details">
+            <h1 id="title"> {username}'s greenhouse </h1>
             <h2>experience level: {experience_level}</h2>
             <h2>grow zone: {zone}</h2>
-            <Button onClick={this.handleNewPlantClick}>Add New Plant Friend</Button>
+            <Button onClick={this.handleNewPlantClick}>
+              Add New Plant Friend
+            </Button>
+            <Link to="/edit-profile">
+              <Button>Edit Profile</Button>
+            </Link>
           </div>
         </section>
         {this.displayUserPlants(username, user_plants)}
         {/* {this.displayFavoritePlantSpecies(username, favorite_plant_species)} */}
       </>
-    )
-  }
+    );
+  };
 
   render() {
-    const { user, username, zone, profilePhoto, experienceLevel, favoritePlantSpecies, userPlants, match: { params }} = this.props
-    const {error} = this.state
-   
+    const {
+      user,
+      username,
+      zone,
+      profilePhoto,
+      experienceLevel,
+      favoritePlantSpecies,
+      userPlants,
+      match: { params },
+    } = this.props;
+    const { error } = this.state;
+
     if (user.id === parseInt(params.id)) {
-      return this.displayLoggedInUser(user)
+      return this.displayLoggedInUser(user);
     }
-    
+
     return (
       <>
         {error ? (
           <p className="error">{error}</p>
         ) : (
           <>
-            
             <section id="garden-header">
-              <Image src={profilePhoto} size='small' circular floated='left' />
+              <Image
+                src={profilePhoto}
+                size="small"
+                className="user-image"
+                circular
+                floated="left"
+              />
               <div className="garden-details">
                 <h1 id="title"> {username}'s Garden </h1>
                 <h2>experience level: {experienceLevel}</h2>
@@ -139,7 +169,6 @@ class UserPlants extends Component {
             </section>
             {this.displayUserPlants(username, userPlants)}
             {/* {this.displayFavoritePlantSpecies(username, favoritePlantSpecies)} */}
-       
           </>
         )}
       </>
@@ -148,8 +177,16 @@ class UserPlants extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {username, zone, experience_level, id, favorite_plant_species, user_plants, profile_photo} = state.greenhouseReducer.greenhouse
-  
+  const {
+    username,
+    zone,
+    experience_level,
+    id,
+    favorite_plant_species,
+    user_plants,
+    profile_photo,
+  } = state.greenhouseReducer.greenhouse;
+
   return {
     user: state.userReducer,
     username,
@@ -158,8 +195,10 @@ const mapStateToProps = (state) => {
     id,
     favoritePlantSpecies: favorite_plant_species,
     userPlants: user_plants,
-    profilePhoto: profile_photo
+    profilePhoto: profile_photo,
   };
 };
 
-export default connect(mapStateToProps, {setGreenhouse, resetGreenhouse})(UserPlants);
+export default connect(mapStateToProps, { setGreenhouse, resetGreenhouse })(
+  UserPlants
+);

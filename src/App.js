@@ -6,12 +6,12 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import {Message} from "semantic-ui-react"
+import { Message } from "semantic-ui-react";
 import { reAuth } from "./redux/actions/userActions";
 import { setUserPlants } from "./redux/actions/plantActions";
-import {setLoading} from "./redux/actions/statusActions"
+import { setLoading } from "./redux/actions/statusActions";
 
-import WithLoading from "./higherOrderComponents/WithLoading"
+import WithLoading from "./higherOrderComponents/WithLoading";
 
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -24,12 +24,14 @@ import UserPlantForm from "./components/userPlants/UserPlantForm";
 import UserPlantShow from "./components/userPlants/UserPlantShow";
 import NotFound from "./components/NotFound";
 import "./App.css";
+import EditUserInfo from "./components/EditUserInfo";
+import EditPlant from "./components/userPlants/EditPlant";
 
 // import Explore from "./components/Explore";
 // import PlantShow from "./components/plants/PlantShow";
 const UserPlantsWithLoading = WithLoading(UserPlants);
 const UserPlantShowWithLoading = WithLoading(UserPlantShow);
-const CommunityGardenWithLoading = WithLoading(CommunityGarden)
+const CommunityGardenWithLoading = WithLoading(CommunityGarden);
 
 const token = localStorage.getItem("token");
 
@@ -41,8 +43,8 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {user, userPlants, setUserPlants} = this.props
-   
+    const { user, userPlants, setUserPlants } = this.props;
+
     if (prevProps.user.id !== user.id && userPlants.length === 0) {
       setUserPlants();
     }
@@ -50,7 +52,7 @@ class App extends Component {
 
   render() {
     const { errors, loading } = this.props;
-    
+
     return (
       <div className="app-container">
         <Router>
@@ -64,7 +66,6 @@ class App extends Component {
             ))}
 
           <main className="app-content">
-            
             {!localStorage.getItem("token") ? (
               <Switch>
                 <Route exact path="/" component={About} />
@@ -78,11 +79,41 @@ class App extends Component {
                 <Route
                   exact
                   path="/community-garden"
-                  render={(routerProps) => <CommunityGardenWithLoading {...routerProps} isLoading={loading}/>}
+                  render={(routerProps) => (
+                    <CommunityGardenWithLoading
+                      {...routerProps}
+                      isLoading={loading}
+                    />
+                  )}
                 />
-                <Route path="/greenhouse/:id" render={(routerProps) => <UserPlantsWithLoading {...routerProps} isLoading={loading}/>} />
-                <Route path="/user_plant/:id" render={(routerProps) => <UserPlantShowWithLoading {...routerProps} isLoading={loading}/>} />
+                <Route
+                  path="/greenhouse/:id"
+                  render={(routerProps) => (
+                    <UserPlantsWithLoading
+                      {...routerProps}
+                      isLoading={loading}
+                    />
+                  )}
+                />
+                <Route
+                  path="/user_plant/:id"
+                  render={(routerProps) => (
+                    <UserPlantShowWithLoading
+                      {...routerProps}
+                      isLoading={loading}
+                    />
+                  )}
+                />
+                <Route
+                  path="/edit-plant/:id"
+                  render={(routerProps) => <EditPlant {...routerProps} />}
+                />
                 <Route exact path="/new_plant" component={UserPlantForm} />
+                <Route
+                  exact
+                  path="/edit-profile"
+                  render={(routerProps) => <EditUserInfo {...routerProps} />}
+                />
                 <Redirect from="/login" to="/community-garden" />
                 <Redirect from="/signup" to="/community-garden" />
                 <Route component={NotFound} />
@@ -103,8 +134,10 @@ const mapStateToProps = (state) => {
     user: state.userReducer,
     errors: state.statusReducer.errors,
     userPlants: state.plantReducer.userPlants,
-    loading: state.statusReducer.loading
+    loading: state.statusReducer.loading,
   };
 };
 
-export default connect(mapStateToProps, { reAuth, setUserPlants, setLoading })(App);
+export default connect(mapStateToProps, { reAuth, setUserPlants, setLoading })(
+  App
+);

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Button, Form, Checkbox } from "semantic-ui-react";
 import { newUserPlant } from "../../redux/actions/userActions";
 import { api } from "../../services/api";
+import CardImage from "./CardImage";
 
 const UserPlantForm = ({ history, newUserPlant, userId }) => {
   const [name, setName] = useState("");
@@ -39,6 +40,7 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
   const displayResults = () => {
     return plants.map((plant) => <option key={plant.id}>{plant.name}</option>);
   };
+  // const getUrl = () => (photo ? URL.createObjectURL(photo) : null);
 
   return (
     <div className="form-container">
@@ -49,6 +51,11 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
         X
       </Button>
       <h1>Add a Plant to your Garden</h1>
+      <img
+        src={photo && URL.createObjectURL(photo)}
+        alt="plant"
+        className="plant-card-image"
+      />
       <Form onSubmit={handleSubmit}>
         <Form.Field>
           <label htmlFor="name">name: </label>

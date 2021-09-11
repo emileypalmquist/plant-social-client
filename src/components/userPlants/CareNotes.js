@@ -118,7 +118,7 @@ const CareNotes = ({
       <section>
         <Comment.Group>
           <Header as="h3" dividing>
-            My Care Notes
+            Care Notes
           </Header>
           {displayCareNotes()}
         </Comment.Group>

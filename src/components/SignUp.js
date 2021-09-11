@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Popup } from "semantic-ui-react";
 import { login } from "../redux/actions/userActions";
 
 const SignUp = ({ login, history }) => {
@@ -29,37 +29,39 @@ const SignUp = ({ login, history }) => {
     <div className="form-container">
       <h1>Create an Account</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Field>
+        <Form.Field required>
           <label htmlFor="username">Username: </label>
           <input
             id="username"
             type="text"
             name="username"
             placeholder="username"
+            required
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label htmlFor="password">Password: </label>
           <input
-            id="password"
+            id="form-input-password"
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label htmlFor="passwordConfirmation">Password Confirmation: </label>
           <input
-            id="passwordConfirmation"
+            id="form-input-passwordConfirmation"
             type={showPassword ? "text" : "password"}
             name="passwordConfirmation"
             placeholder="password confirmation"
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label htmlFor="email">Email: </label>
           <input
             id="form-input-control-error-email"
@@ -70,19 +72,28 @@ const SignUp = ({ login, history }) => {
               content: "Please enter a valid email address",
               pointing: "below",
             }}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
-          <label htmlFor="growZone">Grow Zone: </label>
-          <input
-            id="growZone"
-            type="text"
-            name="growZone"
-            placeholder="grow zone"
-            onChange={(e) => setGrowZone(e.target.value)}
-          />
-        </Form.Field>
+        <Popup
+          on="click"
+          popper={{ id: "popper-container", style: { zIndex: 2000 } }}
+          content="You can find this on the USDA Plant hardiness Zone map https://planthardiness.ars.usda.gov/ (Ex: 10a for San Jose, CA)"
+          trigger={
+            <Form.Field required>
+              <label htmlFor="growZone">Grow Zone: </label>
+              <input
+                id="growZone"
+                type="text"
+                name="growZone"
+                placeholder="grow zone"
+                required
+                onChange={(e) => setGrowZone(e.target.value)}
+              />
+            </Form.Field>
+          }
+        ></Popup>
         <Form.Field>
           <label htmlFor="experience">Experience: </label>
           <input
@@ -90,6 +101,7 @@ const SignUp = ({ login, history }) => {
             type="number"
             name="experience"
             placeholder="experience"
+            defaultValue={1}
             max={5}
             min={1}
             onChange={(e) => setExperience(e.target.value)}
@@ -100,7 +112,7 @@ const SignUp = ({ login, history }) => {
         <Button type="submit">Let's Go!</Button>
       </Form>
       <Button onClick={() => setShowPassword(!showPassword)}>
-        Show Passwords
+        {showPassword ? "Hide Passwords" : "Show Passwords"}
       </Button>
     </div>
   );

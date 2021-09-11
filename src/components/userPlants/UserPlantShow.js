@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Card, Icon, Image, Button } from "semantic-ui-react";
@@ -23,11 +23,19 @@ const UserPlantShow = ({
   addUserPlantLike,
   removeUserPlantLike,
 }) => {
+  const wsClient = useRef(null);
+
   const handleResponse = (resp) => {
     if (!resp.error) {
       setUserPlantShow(resp);
     }
   };
+
+  useEffect(() => {
+    if (!wsClient.current) {
+      console.log("hello");
+    }
+  }, []);
 
   useEffect(() => {
     const found = userPlants.filter((p) => p.id === parseInt(match.params.id));
@@ -79,9 +87,15 @@ const UserPlantShow = ({
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              <Link to={`/greenhouse/${showPlant?.user_id}`}>
-                <Button>Check out my greenhouse</Button>
-              </Link>
+              {showPlant.user_id === userId ? (
+                <Link to={`/edit-plant/${showPlant?.id}`}>
+                  <Button>Edit Plant</Button>
+                </Link>
+              ) : (
+                <Link to={`/greenhouse/${showPlant?.user_id}`}>
+                  <Button>Check out my greenhouse</Button>
+                </Link>
+              )}
               <br />
               {showPlant?.likes?.length} Likes
               {like ? (

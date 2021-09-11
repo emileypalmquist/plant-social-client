@@ -1,9 +1,10 @@
 import {
-  LOGIN,
+  SET_USER,
   SIGN_OUT,
   ADD_USER_PLANT,
   REMOVE_USER_PLANT,
-  ADD_CARE_NOTE
+  ADD_CARE_NOTE,
+  UPDATE_USER_PLANT,
 } from "../actionTypes";
 
 const initialState = {
@@ -17,7 +18,7 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN: {
+    case SET_USER: {
       return {
         ...state,
         ...action.payload,
@@ -32,18 +33,32 @@ const userReducer = (state = initialState, action) => {
         user_plants: [...state.user_plants, action.payload],
       };
     }
-    case REMOVE_USER_PLANT: {  
+    case REMOVE_USER_PLANT: {
       return {
         ...state,
         user_plants: state.user_plants.filter((p) => p.id !== action.payload),
       };
     }
     case ADD_CARE_NOTE: {
-      const updatedPlants = state.user_plants.map(p => p.id === action.payload.user_plant_id ? {...p, care_notes: [action.payload, ...p.care_notes]} : p)
+      const updatedPlants = state.user_plants.map((p) =>
+        p.id === action.payload.user_plant_id
+          ? { ...p, care_notes: [action.payload, ...p.care_notes] }
+          : p
+      );
+
       return {
         ...state,
-        user_plants: updatedPlants
-      }
+        user_plants: updatedPlants,
+      };
+    }
+    case UPDATE_USER_PLANT: {
+      const updatedPlants = state.user_plants.map((p) =>
+        p.id === action.payload.id ? action.payload : p
+      );
+      return {
+        ...state,
+        user_plants: updatedPlants,
+      };
     }
     default:
       return state;

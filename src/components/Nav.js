@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { handleLogout } from "../redux/actions/userActions";
 import "../App.css";
 
-const Nav = ({ handleLogout, username, userId }) => {
+const Nav = ({ handleLogout, userId }) => {
   return (
     <header>
       {!localStorage.token ? (
@@ -27,7 +27,7 @@ const Nav = ({ handleLogout, username, userId }) => {
             {" "}
             Your Garden{" "}
           </NavLink>
-          
+
           <NavLink to="/community-garden" className="nav-item">
             {" "}
             Community Garden{" "}
