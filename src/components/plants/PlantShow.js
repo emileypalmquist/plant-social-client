@@ -61,7 +61,11 @@ const PlantShow = ({ match }) => {
         <Card.Content>
           <Card.Header>{plant.name}</Card.Header>
           <Card.Meta>
-            <span className="date"> Featured - {plant.user_plant.name}</span>
+            {!plant.user_plant ? (
+              <span className="date"> Not in a greenhouse at this time</span>
+            ) : (
+              <span className="date"> Featured - {plant.user_plant?.name}</span>
+            )}
           </Card.Meta>
           <Card.Description>
             {/* difficulty: {showPlant?.difficulty} <br />
@@ -70,9 +74,11 @@ const PlantShow = ({ match }) => {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Link to={`/user_plant/${plant.user_plant.id}`}>
-            <Button>Check out {plant.user_plant.name}</Button>
-          </Link>
+          {plant.user_plant && (
+            <Link to={`/user_plant/${plant.user_plant?.id}`}>
+              <Button>Check out {plant.user_plant?.name}</Button>
+            </Link>
+          )}
           <br />
           {plant.favorites.length} Likes
           {favorited ? (
@@ -95,7 +101,7 @@ const PlantShow = ({ match }) => {
       <div>
         <CareNotes
           careNotes={plant.care_notes}
-          userPlantId={plant.user_plant.id}
+          userPlantId={plant.user_plant?.id}
           plantId={plant.id}
         />
         <Comments comments={[]} userPlantId={plant.id} />

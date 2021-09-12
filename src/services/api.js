@@ -50,7 +50,6 @@ const persistUpdateUsersPlant = (id, userPlant) => {
   formData.append("indoor", userPlant.indoor);
   formData.append("plant", userPlant.plant);
   userPlant.photo && formData.append("photo", userPlant.photo);
-  console.log(formData);
   return fetch(API + `/user_plants/${id}`, {
     method: "PATCH",
     headers: {
@@ -199,7 +198,7 @@ const deleteFavorite = (favId) => {
   return fetch(API + `/favorites/${favId}`, {
     method: "DELETE",
     headers: authHeaders(),
-  })
+  });
 };
 
 export const api = {
