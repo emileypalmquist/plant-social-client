@@ -16,6 +16,9 @@ import {
   REMOVE_COMMENT_LIKE,
   SET_LOADING,
   SET_LIKED_USER_PLANTS,
+  ADD_PLANT,
+  ADD_FAVORITE_PLANT,
+  REMOVE_FAVORITE_PLANT,
 } from "../actionTypes";
 import { api } from "../../services/api";
 
@@ -127,5 +130,39 @@ export const setLikedUserPlants = () => {
     api.userPlants.fetchLikedUserPlants().then((data) => {
       dispatch({ type: SET_LIKED_USER_PLANTS, payload: data });
     });
+  };
+};
+
+export const setPlantShow = (id) => {
+  return (dispatch) => {
+    api.plants.getPlant(id).then((data) => {
+      if (!data.error) {
+        dispatch({ type: ADD_PLANT, payload: data });
+      }
+    });
+  };
+};
+
+export const setFavorite = (plantId, userId) => {
+  return (dispatch) => {
+    const fav = {
+      plant_id: plantId,
+      user_id: userId,
+    };
+    api.plants.createFavorite(fav).then((data) => {
+      if (!data.error) {
+        dispatch({ type: ADD_FAVORITE_PLANT, payload: data });
+      }
+    });
+  };
+};
+
+export const setUnFavorite = (plantId, favId) => {
+  return (dispatch) => {
+    api.plants
+      .deleteFavorite(favId)
+      .then(() =>
+        dispatch({ type: REMOVE_FAVORITE_PLANT, payload: { plantId, favId } })
+      );
   };
 };

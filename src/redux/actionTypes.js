@@ -13,6 +13,9 @@ export const REMOVE_CARE_NOTE_LIKE = "REMOVE_CARE_NOTE_LIKE";
 export const ADD_COMMENT_LIKE = "ADD_COMMENT_LIKE";
 export const REMOVE_COMMENT_LIKE = "REMOVE_COMMENT_LIKE";
 export const SET_LIKED_USER_PLANTS = "SET_LIKED_USER_PLANTS";
+export const ADD_PLANT = "ADD_PLANT";
+export const ADD_FAVORITE_PLANT = "ADD_FAVORITE_PLANT";
+export const REMOVE_FAVORITE_PLANT = "REMOVE_FAVORITE_PLANT";
 
 //*****************************//
 // User reducer action types

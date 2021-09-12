@@ -17,6 +17,9 @@ import {
   ADD_COMMENT_LIKE,
   REMOVE_COMMENT_LIKE,
   SET_LIKED_USER_PLANTS,
+  ADD_PLANT,
+  ADD_FAVORITE_PLANT,
+  REMOVE_FAVORITE_PLANT,
 } from "../actionTypes";
 
 const initialState = {
@@ -230,6 +233,39 @@ const plantReducer = (state = initialState, action) => {
       return {
         ...state,
         likedUserPlants: action.payload,
+      };
+    }
+    case ADD_PLANT: {
+      return {
+        ...state,
+        plants: [...state.plants, action.payload],
+      };
+    }
+    case ADD_FAVORITE_PLANT: {
+      const updatedPlants = state.plants.map((p) =>
+        p.id === action.payload.plant_id
+          ? { ...p, favorites: [...p.favorites, action.payload] }
+          : p
+      );
+      return {
+        ...state,
+        plants: updatedPlants,
+      };
+    }
+    case REMOVE_FAVORITE_PLANT: {
+      const updatedPlants = state.plants.map((p) =>
+        p.id === action.payload.plantId
+          ? {
+              ...p,
+              favorites: p.favorites.filter(
+                (f) => f.id !== action.payload.favId
+              ),
+            }
+          : p
+      );
+      return {
+        ...state,
+        plants: updatedPlants,
       };
     }
     default:

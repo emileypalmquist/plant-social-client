@@ -180,6 +180,28 @@ const fetchLikedUserPlants = () => {
   }).then((resp) => resp.json());
 };
 
+const getPlant = (id) => {
+  return fetch(API + `/plants/${id}`, {
+    method: "GET",
+    headers: authHeaders(),
+  }).then((resp) => resp.json());
+};
+
+const createFavorite = (favorite) => {
+  return fetch(API + "/favorites", {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ favorite }),
+  }).then((resp) => resp.json());
+};
+
+const deleteFavorite = (favId) => {
+  return fetch(API + `/favorites/${favId}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  })
+};
+
 export const api = {
   auth: {
     login,
@@ -189,6 +211,9 @@ export const api = {
   plants: {
     getPlants,
     searchForPlantSpecies,
+    getPlant,
+    createFavorite,
+    deleteFavorite,
   },
   userPlants: {
     getUserPlant,

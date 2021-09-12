@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router";
 import { Comment, Header, Input, Message } from "semantic-ui-react";
 import { api } from "../../services/api";
 import { connect } from "react-redux";
@@ -21,6 +22,7 @@ const CareNotes = ({
 }) => {
   const [content, setContent] = useState("");
   const [message, setMessage] = useState(null);
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,7 +114,7 @@ const CareNotes = ({
       </>
     );
   };
-
+  
   return (
     <div>
       <section>
@@ -124,7 +126,7 @@ const CareNotes = ({
         </Comment.Group>
       </section>
 
-      {userId === plantUserId && (
+      {userId === plantUserId && !location.pathname.includes("plant-species") && (
         <form onSubmit={handleSubmit} className="care-notes-form">
           <Input
             fluid

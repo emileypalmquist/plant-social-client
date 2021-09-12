@@ -27,6 +27,7 @@ import EditUserInfo from "./components/EditUserInfo";
 import EditPlant from "./components/userPlants/EditPlant";
 import LikedUserPlants from "./components/userPlants/LikedUserPlants";
 import Explore from "./components/Explore";
+import PlantShow from "./components/plants/PlantShow";
 import "./App.css";
 
 // import Explore from "./components/Explore";
@@ -36,6 +37,7 @@ const UserPlantShowWithLoading = WithLoading(UserPlantShow);
 const CommunityGardenWithLoading = WithLoading(CommunityGarden);
 const LikedUserPlantsWithLoading = WithLoading(LikedUserPlants);
 const ExploreWithLoading = WithLoading(Explore);
+const PlantShowWithLoading = WithLoading(PlantShow);
 
 const token = localStorage.getItem("token");
 
@@ -122,7 +124,15 @@ class App extends Component {
                   path="/edit-plant/:id"
                   render={(routerProps) => <EditPlant {...routerProps} />}
                 />
-                {/* <Route path="/plant-species/:id" component={PlantShow} /> */}
+                <Route
+                  path="/plant-species/:id"
+                  render={(routerProps) => (
+                    <PlantShowWithLoading
+                      {...routerProps}
+                      isLoading={loading}
+                    />
+                  )}
+                />
                 <Route exact path="/new_plant" component={UserPlantForm} />
                 <Route
                   exact
