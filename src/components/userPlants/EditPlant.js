@@ -81,7 +81,11 @@ export default function EditPlant({ history, match }) {
 
   const renderButton = () => {
     if ((newPhoto && updatePhoto) || updatePhoto) {
-      return <Button onClick={handleCancel}>X</Button>;
+      return (
+        <Button onClick={handleCancel}>
+          <Icon name="cancel" id="cancel-icon" />
+        </Button>
+      );
     } else {
       return (
         <Button onClick={() => setUpdatePhoto(!updatePhoto)}>
@@ -105,6 +109,8 @@ export default function EditPlant({ history, match }) {
           src={newPhoto && URL.createObjectURL(newPhoto)}
           alt="plant"
           className="plant-card-image"
+          height="250"
+          width="250"
         />
       ) : (
         <CardImage photo={plant && plant.photo} />

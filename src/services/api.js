@@ -173,6 +173,13 @@ const searchForPlantSpecies = (query) => {
   }).then((resp) => resp.json());
 };
 
+const fetchLikedUserPlants = () => {
+  return fetch(API + "/user_plants?liked=true", {
+    method: "GET",
+    headers: authHeaders(),
+  }).then((resp) => resp.json());
+};
+
 export const api = {
   auth: {
     login,
@@ -190,6 +197,7 @@ export const api = {
     deleteUserPlant,
     createUserPlant,
     persistUpdateUsersPlant,
+    fetchLikedUserPlants,
   },
   likes: {
     createLike,

@@ -71,7 +71,13 @@ const UserPlantShow = ({
         <>
           <Card>
             {showPlant?.photo.includes("https://") ? (
-              <Image src={showPlant?.photo} wrapped ui={false} />
+              <Image
+                src={showPlant?.photo}
+                wrapped
+                ui={false}
+                height="40vh"
+                width="100vw"
+              />
             ) : (
               <Image src={`${API}${showPlant?.photo}`} wrapped ui={false} />
             )}

@@ -16,6 +16,7 @@ import {
   REMOVE_CARE_NOTE_LIKE,
   ADD_COMMENT_LIKE,
   REMOVE_COMMENT_LIKE,
+  SET_LIKED_USER_PLANTS,
 } from "../actionTypes";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   userPlantShow: {},
   commentsShow: [],
   careNotesShow: [],
+  likedUserPlants: [],
 };
 
 const plantReducer = (state = initialState, action) => {
@@ -222,6 +224,12 @@ const plantReducer = (state = initialState, action) => {
         ...state,
         userPlants: updatedPlants,
         userPlantShow: action.payload,
+      };
+    }
+    case SET_LIKED_USER_PLANTS: {
+      return {
+        ...state,
+        likedUserPlants: action.payload,
       };
     }
     default:

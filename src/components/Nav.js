@@ -28,14 +28,18 @@ const Nav = ({ handleLogout, userId }) => {
             Your Garden{" "}
           </NavLink>
 
-          <NavLink to="/community-garden" className="nav-item">
+          <NavLink to="/community-greenhouse" className="nav-item">
             {" "}
             Community Garden{" "}
           </NavLink>
-          {/* <NavLink to="/explore" className="nav-item">
+          <NavLink to="/liked-plants-greenhouse" className="nav-item">
+            {" "}
+            Favorites{" "}
+          </NavLink>
+          <NavLink to="/explore" className="nav-item">
             {" "}
             Explore{" "}
-          </NavLink> */}
+          </NavLink>
           <NavLink to="/login" className="nav-item">
             {" "}
             <div onClick={handleLogout}>Log Out </div>

@@ -9,7 +9,7 @@ import {
 import { Message } from "semantic-ui-react";
 import { reAuth } from "./redux/actions/userActions";
 import { setUserPlants } from "./redux/actions/plantActions";
-import { setLoading } from "./redux/actions/statusActions";
+import { setLoading, removeErrors } from "./redux/actions/statusActions";
 
 import WithLoading from "./higherOrderComponents/WithLoading";
 
@@ -23,15 +23,19 @@ import UserPlants from "./components/userPlants/UserPlants";
 import UserPlantForm from "./components/userPlants/UserPlantForm";
 import UserPlantShow from "./components/userPlants/UserPlantShow";
 import NotFound from "./components/NotFound";
-import "./App.css";
 import EditUserInfo from "./components/EditUserInfo";
 import EditPlant from "./components/userPlants/EditPlant";
+import LikedUserPlants from "./components/userPlants/LikedUserPlants";
+import Explore from "./components/Explore";
+import "./App.css";
 
 // import Explore from "./components/Explore";
 // import PlantShow from "./components/plants/PlantShow";
 const UserPlantsWithLoading = WithLoading(UserPlants);
 const UserPlantShowWithLoading = WithLoading(UserPlantShow);
 const CommunityGardenWithLoading = WithLoading(CommunityGarden);
+const LikedUserPlantsWithLoading = WithLoading(LikedUserPlants);
+const ExploreWithLoading = WithLoading(Explore);
 
 const token = localStorage.getItem("token");
 
@@ -51,7 +55,7 @@ class App extends Component {
   }
 
   render() {
-    const { errors, loading } = this.props;
+    const { errors, loading, removeErrors } = this.props;
 
     return (
       <div className="app-container">
@@ -60,7 +64,7 @@ class App extends Component {
 
           {errors &&
             errors.map((error) => (
-              <Message warning key={Math.random}>
+              <Message warning key={Math.random} onClick={removeErrors}>
                 <Message.Header>{error}</Message.Header>
               </Message>
             ))}
@@ -78,9 +82,19 @@ class App extends Component {
                 <Route exact path="/" component={About} />
                 <Route
                   exact
-                  path="/community-garden"
+                  path="/community-greenhouse"
                   render={(routerProps) => (
                     <CommunityGardenWithLoading
+                      {...routerProps}
+                      isLoading={loading}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/liked-plants-greenhouse"
+                  render={(routerProps) => (
+                    <LikedUserPlantsWithLoading
                       {...routerProps}
                       isLoading={loading}
                     />
@@ -108,17 +122,23 @@ class App extends Component {
                   path="/edit-plant/:id"
                   render={(routerProps) => <EditPlant {...routerProps} />}
                 />
+                {/* <Route path="/plant-species/:id" component={PlantShow} /> */}
                 <Route exact path="/new_plant" component={UserPlantForm} />
                 <Route
                   exact
                   path="/edit-profile"
                   render={(routerProps) => <EditUserInfo {...routerProps} />}
                 />
+                <Route
+                  exact
+                  path="/explore"
+                  render={(routerProps) => (
+                    <ExploreWithLoading {...routerProps} isLoading={loading} />
+                  )}
+                />
                 <Redirect from="/login" to="/community-garden" />
                 <Redirect from="/signup" to="/community-garden" />
                 <Route component={NotFound} />
-                {/* <Route path="/plant/:id" component={PlantShow} /> */}
-                {/* <Route exact path="/explore" component={Explore} /> */}
               </Switch>
             )}
           </main>
@@ -138,6 +158,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { reAuth, setUserPlants, setLoading })(
-  App
-);
+export default connect(mapStateToProps, {
+  reAuth,
+  setUserPlants,
+  setLoading,
+  removeErrors,
+})(App);

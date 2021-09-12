@@ -58,7 +58,7 @@ class UserPlants extends Component {
     const { user, history, location } = this.props;
 
     return userPlants.length === 0 ? (
-      <h1>No Plants &#9785; </h1>
+      <h2>No Plants &#9785; </h2>
     ) : (
       <div className="plant-cards-container">
         {userPlants.map((plant) => (

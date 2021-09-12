@@ -40,7 +40,6 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
   const displayResults = () => {
     return plants.map((plant) => <option key={plant.id}>{plant.name}</option>);
   };
-  // const getUrl = () => (photo ? URL.createObjectURL(photo) : null);
 
   return (
     <div className="form-container">
@@ -55,6 +54,8 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
         src={photo && URL.createObjectURL(photo)}
         alt="plant"
         className="plant-card-image"
+        height="250"
+        width="250"
       />
       <Form onSubmit={handleSubmit}>
         <Form.Field>
@@ -68,7 +69,7 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label htmlFor="plantSpecies">plant species: </label>
           <input
             id="plantSpecies"
@@ -78,6 +79,7 @@ const UserPlantForm = ({ history, newUserPlant, userId }) => {
             value={plantSpeciesQuery}
             onChange={(e) => handleSearch(e.target.value)}
             list="plant-species-list"
+            required
           />
           <datalist id="plant-species-list">{displayResults()}</datalist>
         </Form.Field>
