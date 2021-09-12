@@ -65,6 +65,7 @@ const UserPlantShow = ({
   };
 
   const like = showPlant?.likes?.find((like) => like.user_id === userId);
+
   return (
     <div className="plant-show-container">
       {Object.keys(showPlant).length ? (
@@ -126,6 +127,7 @@ const UserPlantShow = ({
               careNotes={showPlant?.care_notes}
               userPlantId={showPlant?.id}
               plantUserId={showPlant?.user_id}
+              plantId={showPlant?.plant?.id}
             />
             <Comments
               comments={showPlant?.comments}

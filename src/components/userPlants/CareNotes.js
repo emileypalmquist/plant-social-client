@@ -19,6 +19,7 @@ const CareNotes = ({
   removeCareNote,
   addCareNoteLike,
   removeCareNoteLike,
+  plantId,
 }) => {
   const [content, setContent] = useState("");
   const [message, setMessage] = useState(null);
@@ -46,6 +47,7 @@ const CareNotes = ({
 
   const handleDelete = ({ id, user_plant_id }) => {
     api.careNotes.deleteCareNote(id).then((data) => {
+      console.log(data);
       setMessage(data.message);
       removeCareNote(id, user_plant_id);
     });
@@ -57,15 +59,18 @@ const CareNotes = ({
       likeable_id: id,
       likeable_type: "CareNote",
     };
+
     api.likes
       .createLike(like)
-      .then((data) => addCareNoteLike(data, userPlantId));
+      .then((data) => addCareNoteLike(data, userPlantId, plantId));
   };
 
   const handleUnLike = (like) => {
     api.likes
       .deleteLike(like.id)
-      .then((data) => data.message && removeCareNoteLike(like, userPlantId));
+      .then(
+        (data) => data.message && removeCareNoteLike(like, userPlantId, plantId)
+      );
   };
 
   const displayCareNotes = () => {
@@ -114,7 +119,7 @@ const CareNotes = ({
       </>
     );
   };
-  
+
   return (
     <div>
       <section>

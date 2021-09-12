@@ -138,8 +138,20 @@ const plantReducer = (state = initialState, action) => {
       };
     }
     case ADD_CARE_NOTE_LIKE: {
-      const updatedPlants = state.userPlants.map((p) =>
+      const updatedUserPlants = state.userPlants.map((p) =>
         p.id === action.payload.userPlantId
+          ? {
+              ...p,
+              care_notes: p.care_notes.map((cn) =>
+                cn.id === action.payload.like.likeable_id
+                  ? { ...cn, likes: [...cn.likes, action.payload.like] }
+                  : cn
+              ),
+            }
+          : p
+      );
+      const updatedPlants = state.plants.map((p) =>
+        p.id === action.payload.plantId
           ? {
               ...p,
               care_notes: p.care_notes.map((cn) =>
@@ -152,11 +164,12 @@ const plantReducer = (state = initialState, action) => {
       );
       return {
         ...state,
-        userPlants: updatedPlants,
+        userPlants: updatedUserPlants,
+        plants: updatedPlants,
       };
     }
     case REMOVE_CARE_NOTE_LIKE: {
-      const updatedPlants = state.userPlants.map((p) =>
+      const updatedUserPlants = state.userPlants.map((p) =>
         p.id === action.payload.userPlantId
           ? {
               ...p,
@@ -173,9 +186,29 @@ const plantReducer = (state = initialState, action) => {
             }
           : p
       );
+
+      const updatedPlants = state.plants.map((p) =>
+        p.id === action.payload.plantId
+          ? {
+              ...p,
+              care_notes: p.care_notes.map((cn) =>
+                cn.id === action.payload.like.likeable_id
+                  ? {
+                      ...cn,
+                      likes: cn.likes.filter(
+                        (l) => l.id !== action.payload.like.id
+                      ),
+                    }
+                  : cn
+              ),
+            }
+          : p
+      );
+      console.log(action.payload);
       return {
         ...state,
-        userPlants: updatedPlants,
+        userPlants: updatedUserPlants,
+        plants: updatedPlants,
       };
     }
     case ADD_COMMENT_LIKE: {
@@ -197,7 +230,7 @@ const plantReducer = (state = initialState, action) => {
       };
     }
     case REMOVE_COMMENT_LIKE: {
-      const updatedPlants = state.userPlants.map((p) =>
+      const updatedUserPlants = state.userPlants.map((p) =>
         p.id === action.payload.userPlantId
           ? {
               ...p,
@@ -214,9 +247,10 @@ const plantReducer = (state = initialState, action) => {
             }
           : p
       );
+
       return {
         ...state,
-        userPlants: updatedPlants,
+        userPlants: updatedUserPlants,
       };
     }
     case UPDATE_USER_PLANT: {

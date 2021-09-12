@@ -90,17 +90,17 @@ export const removeUserPlantLike = (like) => {
   };
 };
 
-export const addCareNoteLike = (like, userPlantId) => {
+export const addCareNoteLike = (like, userPlantId, plantId) => {
   return {
     type: ADD_CARE_NOTE_LIKE,
-    payload: { like, userPlantId },
+    payload: { like, userPlantId, plantId },
   };
 };
 
-export const removeCareNoteLike = (like, userPlantId) => {
+export const removeCareNoteLike = (like, userPlantId, plantId) => {
   return {
     type: REMOVE_CARE_NOTE_LIKE,
-    payload: { like, userPlantId },
+    payload: { like, userPlantId, plantId },
   };
 };
 

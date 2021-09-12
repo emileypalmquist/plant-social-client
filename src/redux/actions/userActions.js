@@ -25,7 +25,7 @@ export const login = (e, user, path, history) => {
           dispatch({ type: SET_USER, payload: data.user });
           dispatch({ type: SET_LOADING, payload: false });
           dispatch({ type: REMOVE_ERROR });
-          history.push("community-garden");
+          history.push("community-greenhouse");
         } else {
           dispatch({ type: ADD_ERROR, payload: data.messages });
         }

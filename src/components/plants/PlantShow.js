@@ -43,7 +43,7 @@ const PlantShow = ({ match }) => {
     unFavoritePlant(plant.id, favorited.id);
   }
 
-  console.log(plant);
+  // console.log(plant);
   return (
     <div className="plant-show-container">
       <Card>
@@ -95,8 +95,8 @@ const PlantShow = ({ match }) => {
       <div>
         <CareNotes
           careNotes={plant.care_notes}
-          userPlantId={plant.id}
-          plantUserId={plant.id}
+          userPlantId={plant.user_plant.id}
+          plantId={plant.id}
         />
         <Comments comments={[]} userPlantId={plant.id} />
       </div>
