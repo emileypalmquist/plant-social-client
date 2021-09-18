@@ -7,7 +7,7 @@ import PlantCard from "./userPlants/PlantCard";
 const CommunityGarden = ({ userPlants, history, user, location }) => {
   return (
     <>
-      <h1 id="title">Community Garden</h1>
+      <h1 id="title">Community Greenhouse</h1>
       <div className="plant-cards-container">
         {/* <Suspense fallback={<Loading />}> */}
         {userPlants.map((plant) => (

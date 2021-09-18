@@ -43,13 +43,13 @@ const Nav = ({ handleLogout, userId }) => {
           <li>
             <NavLink to={`/greenhouse/${userId}`} className="nav-item">
               {" "}
-              Your Garden{" "}
+              Your Greenhouse{" "}
             </NavLink>
           </li>
           <li>
             <NavLink to="/community-greenhouse" className="nav-item">
               {" "}
-              Community Garden{" "}
+              Community Greenhouse{" "}
             </NavLink>
           </li>
           <li>

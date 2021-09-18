@@ -161,7 +161,7 @@ class UserPlants extends Component {
                 floated="left"
               />
               <div className="garden-details">
-                <h1 id="title"> {username}'s Garden </h1>
+                <h1 id="title"> {username}'s greenhouse </h1>
                 <h2>experience level: {experienceLevel}</h2>
                 <h2>grow zone: {zone}</h2>
                 {/* <Button onClick={this.handleAddFriendClick}>Add Friend</Button> */}
