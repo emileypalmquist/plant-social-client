@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "semantic-ui-react";
 import { login } from "../redux/actions/userActions";
+import { setLoading } from "../redux/actions/statusActions";
 import Loading from "../Loading";
 
-const Login = ({ login, history, isLoading }) => {
+const Login = ({ login, history, isLoading, setLoading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +13,8 @@ const Login = ({ login, history, isLoading }) => {
   const handleSubmit = (e) => {
     login(e, { username, password }, "/login", history);
   };
+
+  useEffect(() => setLoading(false));
 
   if (isLoading) {
     return <Loading />;
@@ -52,4 +55,4 @@ const Login = ({ login, history, isLoading }) => {
   );
 };
 
-export default connect(null, { login })(Login);
+export default connect(null, { login, setLoading })(Login);

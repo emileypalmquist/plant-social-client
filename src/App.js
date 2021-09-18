@@ -82,7 +82,13 @@ class App extends Component {
                     <Login {...routerProps} isLoading={loading} />
                   )}
                 />
-                <Route exact path="/signup" component={SignUp} />
+                <Route
+                  exact
+                  path="/signup"
+                  render={(routerProps) => (
+                    <SignUp {...routerProps} isLoading={loading} />
+                  )}
+                />
                 <Redirect to="/login" />
               </Switch>
             ) : (

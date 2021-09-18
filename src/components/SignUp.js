@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Form, Button, Popup } from "semantic-ui-react";
 import { login } from "../redux/actions/userActions";
+import { setLoading } from "../redux/actions/statusActions";
+import Loading from "../Loading";
 
-const SignUp = ({ login, history }) => {
+const SignUp = ({ login, history, isLoading, setLoading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -24,6 +26,12 @@ const SignUp = ({ login, history }) => {
 
     login(e, user, "/users", history);
   };
+
+  useEffect(() => setLoading(false));
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="form-container">
@@ -118,4 +126,4 @@ const SignUp = ({ login, history }) => {
   );
 };
 
-export default connect(null, { login })(SignUp);
+export default connect(null, { login, setLoading })(SignUp);
