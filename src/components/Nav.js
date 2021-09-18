@@ -1,50 +1,76 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import Burger from "@animated-burgers/burger-squeeze";
+import "@animated-burgers/burger-squeeze/dist/styles.css";
 import { handleLogout } from "../redux/actions/userActions";
 import "../App.css";
 
 const Nav = ({ handleLogout, userId }) => {
+  const [navOpen, setNavOpen] = useState(false);
   return (
-    <header>
+    <header id="nav">
+      <Burger isOpen={navOpen} onClick={() => setNavOpen(!navOpen)} />
       {!localStorage.token ? (
-        <>
-          <NavLink exact to="/" className="nav-item">
-            {" "}
-            About{" "}
-          </NavLink>
-          <NavLink to="/login" className="nav-item">
-            {" "}
-            Login{" "}
-          </NavLink>
-          <NavLink to="/signup" className="nav-item">
-            {" "}
-            Sign Up{" "}
-          </NavLink>
-        </>
+        <ul
+          className={navOpen ? "nav hamburger-open" : "nav hamburger-closed"}
+          onClick={() => setNavOpen(false)}
+        >
+          <li>
+            <NavLink exact to="/" className="nav-item">
+              {" "}
+              About{" "}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/login" className="nav-item">
+              {" "}
+              Login{" "}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/signup" className="nav-item">
+              {" "}
+              Sign Up{" "}
+            </NavLink>
+          </li>
+        </ul>
       ) : (
-        <>
-          <NavLink to={`/greenhouse/${userId}`} className="nav-item">
-            {" "}
-            Your Garden{" "}
-          </NavLink>
-
-          <NavLink to="/community-greenhouse" className="nav-item">
-            {" "}
-            Community Garden{" "}
-          </NavLink>
-          <NavLink to="/liked-plants-greenhouse" className="nav-item">
-            {" "}
-            Favorites{" "}
-          </NavLink>
-          <NavLink to="/explore" className="nav-item">
-            {" "}
-            Explore{" "}
-          </NavLink>
-          <NavLink to="/login" className="nav-item">
-            {" "}
-            <div onClick={handleLogout}>Log Out </div>
-          </NavLink>
-        </>
+        <ul
+          className={navOpen ? "nav hamburger-open" : "nav hamburger-closed"}
+          onClick={() => setNavOpen(false)}
+        >
+          <li>
+            <NavLink to={`/greenhouse/${userId}`} className="nav-item">
+              {" "}
+              Your Garden{" "}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/community-greenhouse" className="nav-item">
+              {" "}
+              Community Garden{" "}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/liked-plants-greenhouse" className="nav-item">
+              {" "}
+              Favorites{" "}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/explore" className="nav-item">
+              {" "}
+              Explore{" "}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/login" className="nav-item" onClick={handleLogout}>
+              {" "}
+              Log Out
+            </NavLink>
+          </li>
+        </ul>
       )}
     </header>
   );

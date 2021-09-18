@@ -18,13 +18,21 @@
   margin-top: 2rem;
 }
 
-header {
+header#nav {
   background-color: #a3b18a;
   position: sticky;
   padding: 15px;
   display: flex;
   justify-content: flex-end;
   align-items: row;
+}
+
+li {
+  display: inline;
+}
+
+.burger {
+  display: none;
 }
 
 .nav-item {
@@ -194,6 +202,52 @@ div.comment {
   .ui.card {
     width: 350px;
     margin-bottom: 3em;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .burger {
+    display: block;
+    float: right;
+    position: relative !important;
+    margin-right: 2rem;
+    z-index: 9999;
+  }
+  .hamburger-closed {
+    display: none;
+  }
+
+  header#nav {
+    padding-right: 0;
+    height: 80px;
+    z-index: 9998 !important;
+  }
+
+  .hamburger-open {
+    background-color: #dad7cd;
+  }
+
+  ul.nav.hamburger-open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    margin-top: -1.1rem;
+  }
+
+  .nav li {
+    padding: 1rem;
+  }
+
+  .nav-item {
+    font-size: 2rem;
+  }
+
+  .hamburger-closed > li {
+    display: none;
   }
 }
 
