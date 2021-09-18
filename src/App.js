@@ -75,7 +75,13 @@ class App extends Component {
             {!localStorage.getItem("token") ? (
               <Switch>
                 <Route exact path="/" component={About} />
-                <Route exact path="/login" component={Login} />
+                <Route
+                  exact
+                  path="/login"
+                  render={(routerProps) => (
+                    <Login {...routerProps} isLoading={loading} />
+                  )}
+                />
                 <Route exact path="/signup" component={SignUp} />
                 <Redirect to="/login" />
               </Switch>

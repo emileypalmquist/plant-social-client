@@ -21,13 +21,13 @@ export const login = (e, user, path, history) => {
       .then((data) => {
         if (data.user) {
           localStorage.setItem("token", data.jwt);
-          console.log(data.user);
           dispatch({ type: SET_USER, payload: data.user });
           dispatch({ type: SET_LOADING, payload: false });
           dispatch({ type: REMOVE_ERROR });
           history.push("community-greenhouse");
         } else {
           dispatch({ type: ADD_ERROR, payload: data.messages });
+          dispatch({ type: SET_LOADING, payload: false });
         }
       })
       .catch((error) => console.log(error));
