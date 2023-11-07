@@ -58,7 +58,7 @@ class App extends Component {
 
   render() {
     const { errors, loading, removeErrors } = this.props;
-    console.log(loading)
+    
     return (
       <div className="app-container">
         <Router>
