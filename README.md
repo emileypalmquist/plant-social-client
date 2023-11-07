@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# Plant Social Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Plant Social Client is a React application that allows users to share their plants, plant care notes, like other users' plants and care notes, and comment on other users' plants. Additionally, users can explore different plant species in the database and view the most liked care notes for those species.
 
-## Available Scripts
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Environment Variables](#environment-variables)
+- [Dependencies](#dependencies)
+- [Scripts](#scripts)
+- [Contributing](#contributing)
+- [License](#license)
+- [Backend Repository](#backend-repository)
 
-In the project directory, you can run:
+## Installation
 
-### `yarn start`
+To get started with Plant Social Client, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+   ```shell
+   git clone https://github.com/yourusername/plant-social-client.git
+   ```
 
-### `yarn test`
+2. Change into the project directory:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```shell
+   cd plant-social-client
+   ```
 
-### `yarn build`
+3. Install the necessary dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```shell
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Once you have installed the dependencies, you can start the development server:
 
-### `yarn eject`
+```shell
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This will launch the Plant Social Client application on `http://localhost:3001` in your web browser.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Environment Variables
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Before running the application, make sure to create an `.env` file in the root directory of the project and define the following environment variables:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `REACT_APP_BACKEND_BASE_URL`: The base URL of your backend server, which should be set to the server's URL. In this case, it should be set to the URL of the Plant Social Server backend (e.g., `https://yourbackendurl.com/api/v1`).
 
-## Learn More
+- `REACT_APP_BACKEND_IMAGE_BASE_URL`: The base URL for serving images from the backend. This should also be set to the URL of your backend server's image storage or API (e.g., `https://yourbackendurl.com`).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Here is an example of the `.env` file:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```env
+REACT_APP_BACKEND_BASE_URL=https://yourbackendurl.com/api/v1
+REACT_APP_BACKEND_IMAGE_BASE_URL=https://yourbackendurl.com
+```
 
-### Code Splitting
+Make sure to replace `https://yourbackendurl.com` with the actual URLs of your backend server and image storage.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Dependencies
 
-### Analyzing the Bundle Size
+Plant Social Client relies on the following packages and libraries:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [animated-burgers/burger-squeeze](https://www.npmjs.com/package/@animated-burgers/burger-squeeze) - A package for animated burger menu icons.
+- [testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom) - Jest matchers for DOM elements.
+- [testing-library/react](https://www.npmjs.com/package/@testing-library/react) - Utilities for testing React components.
+- [testing-library/user-event](https://www.npmjs.com/package/@testing-library/user-event) - User event simulation library for testing.
+- [animate.css](https://www.npmjs.com/package/animate.css) - A cross-browser library of CSS animations.
+- [classnames](https://www.npmjs.com/package/classnames) - A utility for conditionally joining class names together.
+- [react](https://www.npmjs.com/package/react) - The core library for building user interfaces in React.
+- [react-dom](https://www.npmjs.com/package/react-dom) - ReactDOM for rendering React components.
+- [react-redux](https://www.npmjs.com/package/react-redux) - Official React bindings for Redux.
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom) - Declarative routing for React.
+- [react-scripts](https://www.npmjs.com/package/react-scripts) - Configuration and scripts for Create React App.
+- [redux](https://www.npmjs.com/package/redux) - A predictable state container for JavaScript apps.
+- [redux-thunk](https://www.npmjs.com/package/redux-thunk) - Thunk middleware for Redux.
+- [semantic-ui-css](https://www.npmjs.com/package/semantic-ui-css) - CSS files for Semantic UI.
+- [semantic-ui-react](https://www.npmjs.com/package/semantic-ui-react) - Official Semantic UI integration for React.
+- [web-vitals](https://www.npmjs.com/package/web-vitals) - A library for measuring web performance.
 
-### Making a Progressive Web App
+All dependencies are listed in the `package.json` file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Scripts
 
-### Advanced Configuration
+Plant Social Client comes with several scripts that can be executed using npm:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- `start`: Starts the development server on `http://localhost:3001`.
+- `build`: Builds the production-ready version of the app.
 
-### Deployment
+To run a script, use the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```shell
+npm run <script-name>
+```
 
-### `yarn build` fails to minify
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you would like to contribute to Plant Social Client, please open an issue or create a pull request on the [GitHub repository](https://github.com/emileypalmquist/plant-social-client).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Backend Repository
+
+The backend server for this application is located in its [GitHub repository](https://github.com/emileypalmquist/plant-social-server). You can find more information about the backend server, its setup, and how it interacts with the Plant Social Client frontend in that repository.
