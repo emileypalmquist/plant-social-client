@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Form, Button, Popup } from "semantic-ui-react";
+import { Form, Button, Popup, Message } from "semantic-ui-react";
 import { login } from "../redux/actions/userActions";
 import { setLoading } from "../redux/actions/statusActions";
 import Loading from "../Loading";
@@ -27,14 +27,13 @@ const SignUp = ({ login, history, isLoading, setLoading }) => {
     login(e, user, "/users", history);
   };
 
-  useEffect(() => setLoading(false));
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  useEffect(() => setLoading(false),[]);
 
   return (
     <div className="form-container">
+      {isLoading && <Message>
+        Loading...
+      </Message>}
       <h1>Create an Account</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Field required>
@@ -117,7 +116,7 @@ const SignUp = ({ login, history, isLoading, setLoading }) => {
         </Form.Field>
 
         <label htmlFor="submit" />
-        <Button type="submit">Let's Go!</Button>
+        <Button disabled={isLoading} type="submit">Let's Go!</Button>
       </Form>
       <Button onClick={() => setShowPassword(!showPassword)}>
         {showPassword ? "Hide Passwords" : "Show Passwords"}

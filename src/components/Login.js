@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Message } from "semantic-ui-react";
 import { login } from "../redux/actions/userActions";
 import { setLoading } from "../redux/actions/statusActions";
-import Loading from "../Loading";
 
-const Login = ({ login, history, isLoading, setLoading }) => {
+const Login = ({ login, history, isLoading, setLoading, loading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -14,14 +13,13 @@ const Login = ({ login, history, isLoading, setLoading }) => {
     login(e, { username, password }, "/login", history);
   };
 
-  useEffect(() => setLoading(false));
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  useEffect(() => setLoading(false), []);
 
   return (
     <div className="form-container">
+      {isLoading && <Message>
+        Loading...
+      </Message>}
       <h1>Login</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="username">username: </label>
@@ -45,7 +43,7 @@ const Login = ({ login, history, isLoading, setLoading }) => {
         />
         <br />
         <label htmlFor="submit" />
-        <Button type="submit">Submit</Button>
+        <Button disabled={isLoading} type="submit">Submit</Button>
       </Form>
 
       <Button onClick={() => setShowPassword(!showPassword)}>
