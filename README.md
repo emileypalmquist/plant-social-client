@@ -10,7 +10,7 @@ Plant Social Client is a React application that allows users to share their plan
 - [Scripts](#scripts)
 - [Contributing](#contributing)
 - [License](#license)
-- [Backend Repository](#backend-repository)
+- [Backend Repository](https://github.com/emileypalmquist/plant-social-server)
 
 ## Installation
 
